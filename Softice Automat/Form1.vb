@@ -1,7 +1,7 @@
 ﻿Public Class Form1
     Dim text_visible As Boolean
 
-
+    'TODO: Rename Radiobuttons and Groupboxes!
     Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         pnlSize.BorderStyle = BorderStyle.None
         cmbType.SelectedIndex = 0
@@ -26,4 +26,7 @@
         'lbl_type.Visible = text_visible
     End Sub
 
+    Private Sub PictureBox1_Click(sender As System.Object, e As System.EventArgs)
+
+    End Sub
 End Class

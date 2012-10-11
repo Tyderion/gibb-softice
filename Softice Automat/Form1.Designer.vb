@@ -32,35 +32,44 @@ Partial Class Form1
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.pnlSize = New System.Windows.Forms.Panel()
         Me.cmbType = New System.Windows.Forms.ComboBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.lblPreis = New System.Windows.Forms.Label()
+        Me.lblPreisFr = New System.Windows.Forms.Label()
+        Me.lblBezahltFr = New System.Windows.Forms.Label()
+        Me.lblZuBezahlenFr = New System.Windows.Forms.Label()
+        Me.lblBezahlt = New System.Windows.Forms.Label()
+        Me.lblZuBezahlen = New System.Windows.Forms.Label()
+        Me.btnBestaetigen = New System.Windows.Forms.Button()
         Me.pnlPreis = New System.Windows.Forms.Panel()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
         Me.lblSelection = New System.Windows.Forms.Label()
-        Me.picGeldSchlitz = New System.Windows.Forms.PictureBox()
         Me.pic10rp = New System.Windows.Forms.PictureBox()
         Me.pic20rp = New System.Windows.Forms.PictureBox()
         Me.pi1Fr = New System.Windows.Forms.PictureBox()
         Me.pic50rp = New System.Windows.Forms.PictureBox()
         Me.pic2Fr = New System.Windows.Forms.PictureBox()
         Me.pic5Fr = New System.Windows.Forms.PictureBox()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.lblGeldschlitz = New System.Windows.Forms.Label()
+        Me.pnlVerticalLeft = New System.Windows.Forms.Panel()
+        Me.pnlVerticalRight = New System.Windows.Forms.Panel()
+        Me.pnlVerticalBack = New System.Windows.Forms.Panel()
+        Me.pnlHorizontalTop = New System.Windows.Forms.Panel()
+        Me.pnlHorizontalLower = New System.Windows.Forms.Panel()
+        Me.pnlHorizontalBack = New System.Windows.Forms.Panel()
+        Me.pnlOutputAll = New System.Windows.Forms.Panel()
+        Me.pnlGeldschlitz = New System.Windows.Forms.Panel()
+        Me.pnlGeld = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.pnlSize.SuspendLayout()
         Me.pnlPreis.SuspendLayout()
-        CType(Me.picGeldSchlitz, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pi1Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlOutputAll.SuspendLayout()
+        Me.pnlGeldschlitz.SuspendLayout()
+        Me.pnlGeld.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -150,7 +159,6 @@ Partial Class Form1
         '
         'pnlSize
         '
-        Me.pnlSize.Controls.Add(Me.Splitter1)
         Me.pnlSize.Controls.Add(Me.RadioButton5)
         Me.pnlSize.Controls.Add(Me.RadioButton1)
         Me.pnlSize.Controls.Add(Me.RadioButton4)
@@ -171,89 +179,81 @@ Partial Class Form1
         Me.cmbType.Size = New System.Drawing.Size(121, 21)
         Me.cmbType.TabIndex = 0
         '
-        'Label1
+        'lblPreis
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 8)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(36, 13)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "Preis: "
+        Me.lblPreis.AutoSize = True
+        Me.lblPreis.Location = New System.Drawing.Point(8, 8)
+        Me.lblPreis.Name = "lblPreis"
+        Me.lblPreis.Size = New System.Drawing.Size(36, 13)
+        Me.lblPreis.TabIndex = 7
+        Me.lblPreis.Text = "Preis: "
         '
-        'Label2
+        'lblPreisFr
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(81, 8)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(28, 13)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "2.00"
+        Me.lblPreisFr.AutoSize = True
+        Me.lblPreisFr.Location = New System.Drawing.Point(81, 8)
+        Me.lblPreisFr.Name = "lblPreisFr"
+        Me.lblPreisFr.Size = New System.Drawing.Size(28, 13)
+        Me.lblPreisFr.TabIndex = 8
+        Me.lblPreisFr.Text = "2.00"
         '
-        'Label3
+        'lblBezahltFr
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(81, 21)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(28, 13)
-        Me.Label3.TabIndex = 16
-        Me.Label3.Text = "0.00"
+        Me.lblBezahltFr.AutoSize = True
+        Me.lblBezahltFr.Location = New System.Drawing.Point(81, 21)
+        Me.lblBezahltFr.Name = "lblBezahltFr"
+        Me.lblBezahltFr.Size = New System.Drawing.Size(28, 13)
+        Me.lblBezahltFr.TabIndex = 16
+        Me.lblBezahltFr.Text = "0.00"
         '
-        'Label4
+        'lblZuBezahlenFr
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(81, 34)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(28, 13)
-        Me.Label4.TabIndex = 17
-        Me.Label4.Text = "2.00"
+        Me.lblZuBezahlenFr.AutoSize = True
+        Me.lblZuBezahlenFr.Location = New System.Drawing.Point(81, 34)
+        Me.lblZuBezahlenFr.Name = "lblZuBezahlenFr"
+        Me.lblZuBezahlenFr.Size = New System.Drawing.Size(28, 13)
+        Me.lblZuBezahlenFr.TabIndex = 17
+        Me.lblZuBezahlenFr.Text = "2.00"
         '
-        'Label5
+        'lblBezahlt
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(8, 21)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(44, 13)
-        Me.Label5.TabIndex = 18
-        Me.Label5.Text = "bezahlt:"
+        Me.lblBezahlt.AutoSize = True
+        Me.lblBezahlt.Location = New System.Drawing.Point(8, 21)
+        Me.lblBezahlt.Name = "lblBezahlt"
+        Me.lblBezahlt.Size = New System.Drawing.Size(44, 13)
+        Me.lblBezahlt.TabIndex = 18
+        Me.lblBezahlt.Text = "bezahlt:"
         '
-        'Label6
+        'lblZuBezahlen
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(8, 34)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(67, 13)
-        Me.Label6.TabIndex = 19
-        Me.Label6.Text = "zu bezahlen:"
+        Me.lblZuBezahlen.AutoSize = True
+        Me.lblZuBezahlen.Location = New System.Drawing.Point(8, 34)
+        Me.lblZuBezahlen.Name = "lblZuBezahlen"
+        Me.lblZuBezahlen.Size = New System.Drawing.Size(67, 13)
+        Me.lblZuBezahlen.TabIndex = 19
+        Me.lblZuBezahlen.Text = "zu bezahlen:"
         '
-        'Button1
+        'btnBestaetigen
         '
-        Me.Button1.Location = New System.Drawing.Point(316, 220)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(117, 49)
-        Me.Button1.TabIndex = 20
-        Me.Button1.Text = "Wahl bestätigen"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnBestaetigen.Location = New System.Drawing.Point(316, 220)
+        Me.btnBestaetigen.Name = "btnBestaetigen"
+        Me.btnBestaetigen.Size = New System.Drawing.Size(117, 49)
+        Me.btnBestaetigen.TabIndex = 20
+        Me.btnBestaetigen.Text = "Wahl bestätigen"
+        Me.btnBestaetigen.UseVisualStyleBackColor = True
         '
         'pnlPreis
         '
-        Me.pnlPreis.Controls.Add(Me.Label6)
-        Me.pnlPreis.Controls.Add(Me.Label1)
-        Me.pnlPreis.Controls.Add(Me.Label2)
-        Me.pnlPreis.Controls.Add(Me.Label3)
-        Me.pnlPreis.Controls.Add(Me.Label5)
-        Me.pnlPreis.Controls.Add(Me.Label4)
-        Me.pnlPreis.Location = New System.Drawing.Point(316, 12)
+        Me.pnlPreis.Controls.Add(Me.lblZuBezahlen)
+        Me.pnlPreis.Controls.Add(Me.lblPreis)
+        Me.pnlPreis.Controls.Add(Me.lblPreisFr)
+        Me.pnlPreis.Controls.Add(Me.lblBezahltFr)
+        Me.pnlPreis.Controls.Add(Me.lblBezahlt)
+        Me.pnlPreis.Controls.Add(Me.lblZuBezahlenFr)
+        Me.pnlPreis.Location = New System.Drawing.Point(322, 19)
         Me.pnlPreis.Name = "pnlPreis"
         Me.pnlPreis.Size = New System.Drawing.Size(169, 54)
         Me.pnlPreis.TabIndex = 22
-        '
-        'Splitter1
-        '
-        Me.Splitter1.Location = New System.Drawing.Point(0, 0)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(3, 131)
-        Me.Splitter1.TabIndex = 5
-        Me.Splitter1.TabStop = False
         '
         'lblSelection
         '
@@ -264,18 +264,10 @@ Partial Class Form1
         Me.lblSelection.TabIndex = 23
         Me.lblSelection.Text = "Extra grosser Becher mit Schokoladeneis"
         '
-        'picGeldSchlitz
-        '
-        Me.picGeldSchlitz.Location = New System.Drawing.Point(316, 79)
-        Me.picGeldSchlitz.Name = "picGeldSchlitz"
-        Me.picGeldSchlitz.Size = New System.Drawing.Size(160, 62)
-        Me.picGeldSchlitz.TabIndex = 21
-        Me.picGeldSchlitz.TabStop = False
-        '
         'pic10rp
         '
         Me.pic10rp.Image = Global.Softice_Automat.My.Resources.Resources._10Rp_front
-        Me.pic10rp.Location = New System.Drawing.Point(630, 207)
+        Me.pic10rp.Location = New System.Drawing.Point(147, 92)
         Me.pic10rp.Name = "pic10rp"
         Me.pic10rp.Size = New System.Drawing.Size(68, 63)
         Me.pic10rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -285,7 +277,7 @@ Partial Class Form1
         'pic20rp
         '
         Me.pic20rp.Image = Global.Softice_Automat.My.Resources.Resources._20Rp_front
-        Me.pic20rp.Location = New System.Drawing.Point(566, 207)
+        Me.pic20rp.Location = New System.Drawing.Point(83, 92)
         Me.pic20rp.Name = "pic20rp"
         Me.pic20rp.Size = New System.Drawing.Size(58, 63)
         Me.pic20rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -295,7 +287,7 @@ Partial Class Form1
         'pi1Fr
         '
         Me.pi1Fr.Image = Global.Softice_Automat.My.Resources.Resources._1Fr_front
-        Me.pi1Fr.Location = New System.Drawing.Point(630, 128)
+        Me.pi1Fr.Location = New System.Drawing.Point(147, 13)
         Me.pi1Fr.Name = "pi1Fr"
         Me.pi1Fr.Size = New System.Drawing.Size(68, 72)
         Me.pi1Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -305,7 +297,7 @@ Partial Class Form1
         'pic50rp
         '
         Me.pic50rp.Image = Global.Softice_Automat.My.Resources.Resources._50Rp_front
-        Me.pic50rp.Location = New System.Drawing.Point(495, 207)
+        Me.pic50rp.Location = New System.Drawing.Point(12, 92)
         Me.pic50rp.Name = "pic50rp"
         Me.pic50rp.Size = New System.Drawing.Size(65, 63)
         Me.pic50rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -315,7 +307,7 @@ Partial Class Form1
         'pic2Fr
         '
         Me.pic2Fr.Image = Global.Softice_Automat.My.Resources.Resources._2Fr_front
-        Me.pic2Fr.Location = New System.Drawing.Point(566, 128)
+        Me.pic2Fr.Location = New System.Drawing.Point(83, 13)
         Me.pic2Fr.Name = "pic2Fr"
         Me.pic2Fr.Size = New System.Drawing.Size(58, 73)
         Me.pic2Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -325,39 +317,117 @@ Partial Class Form1
         'pic5Fr
         '
         Me.pic5Fr.Image = Global.Softice_Automat.My.Resources.Resources._5Fr_front
-        Me.pic5Fr.Location = New System.Drawing.Point(495, 128)
+        Me.pic5Fr.Location = New System.Drawing.Point(12, 13)
         Me.pic5Fr.Name = "pic5Fr"
         Me.pic5Fr.Size = New System.Drawing.Size(65, 73)
         Me.pic5Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pic5Fr.TabIndex = 9
         Me.pic5Fr.TabStop = False
         '
-        'Label7
+        'lblGeldschlitz
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label7.Location = New System.Drawing.Point(345, 98)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(117, 15)
-        Me.Label7.TabIndex = 24
-        Me.Label7.Text = "                                    "
+        Me.lblGeldschlitz.AutoSize = True
+        Me.lblGeldschlitz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblGeldschlitz.Location = New System.Drawing.Point(22, 13)
+        Me.lblGeldschlitz.Name = "lblGeldschlitz"
+        Me.lblGeldschlitz.Size = New System.Drawing.Size(117, 15)
+        Me.lblGeldschlitz.TabIndex = 24
+        Me.lblGeldschlitz.Text = "                                    "
+        '
+        'pnlVerticalLeft
+        '
+        Me.pnlVerticalLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlVerticalLeft.Location = New System.Drawing.Point(47, 52)
+        Me.pnlVerticalLeft.Name = "pnlVerticalLeft"
+        Me.pnlVerticalLeft.Size = New System.Drawing.Size(1, 250)
+        Me.pnlVerticalLeft.TabIndex = 25
+        '
+        'pnlVerticalRight
+        '
+        Me.pnlVerticalRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlVerticalRight.Location = New System.Drawing.Point(312, 52)
+        Me.pnlVerticalRight.Name = "pnlVerticalRight"
+        Me.pnlVerticalRight.Size = New System.Drawing.Size(1, 250)
+        Me.pnlVerticalRight.TabIndex = 26
+        '
+        'pnlVerticalBack
+        '
+        Me.pnlVerticalBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlVerticalBack.Location = New System.Drawing.Point(138, 52)
+        Me.pnlVerticalBack.Name = "pnlVerticalBack"
+        Me.pnlVerticalBack.Size = New System.Drawing.Size(1, 190)
+        Me.pnlVerticalBack.TabIndex = 26
+        '
+        'pnlHorizontalTop
+        '
+        Me.pnlHorizontalTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlHorizontalTop.Location = New System.Drawing.Point(47, 52)
+        Me.pnlHorizontalTop.Name = "pnlHorizontalTop"
+        Me.pnlHorizontalTop.Size = New System.Drawing.Size(266, 1)
+        Me.pnlHorizontalTop.TabIndex = 26
+        '
+        'pnlHorizontalLower
+        '
+        Me.pnlHorizontalLower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlHorizontalLower.Location = New System.Drawing.Point(47, 301)
+        Me.pnlHorizontalLower.Name = "pnlHorizontalLower"
+        Me.pnlHorizontalLower.Size = New System.Drawing.Size(266, 1)
+        Me.pnlHorizontalLower.TabIndex = 27
+        '
+        'pnlHorizontalBack
+        '
+        Me.pnlHorizontalBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlHorizontalBack.Location = New System.Drawing.Point(138, 241)
+        Me.pnlHorizontalBack.Name = "pnlHorizontalBack"
+        Me.pnlHorizontalBack.Size = New System.Drawing.Size(174, 1)
+        Me.pnlHorizontalBack.TabIndex = 28
+        '
+        'pnlOutputAll
+        '
+        Me.pnlOutputAll.Controls.Add(Me.pnlHorizontalTop)
+        Me.pnlOutputAll.Controls.Add(Me.pnlHorizontalBack)
+        Me.pnlOutputAll.Controls.Add(Me.pnlVerticalLeft)
+        Me.pnlOutputAll.Controls.Add(Me.pnlHorizontalLower)
+        Me.pnlOutputAll.Controls.Add(Me.pnlVerticalRight)
+        Me.pnlOutputAll.Controls.Add(Me.pnlVerticalBack)
+        Me.pnlOutputAll.Location = New System.Drawing.Point(178, 296)
+        Me.pnlOutputAll.Name = "pnlOutputAll"
+        Me.pnlOutputAll.Size = New System.Drawing.Size(370, 348)
+        Me.pnlOutputAll.TabIndex = 29
+        '
+        'pnlGeldschlitz
+        '
+        Me.pnlGeldschlitz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlGeldschlitz.Controls.Add(Me.lblGeldschlitz)
+        Me.pnlGeldschlitz.Location = New System.Drawing.Point(523, 20)
+        Me.pnlGeldschlitz.Name = "pnlGeldschlitz"
+        Me.pnlGeldschlitz.Size = New System.Drawing.Size(160, 46)
+        Me.pnlGeldschlitz.TabIndex = 30
+        '
+        'pnlGeld
+        '
+        Me.pnlGeld.Controls.Add(Me.pic10rp)
+        Me.pnlGeld.Controls.Add(Me.pic5Fr)
+        Me.pnlGeld.Controls.Add(Me.pic2Fr)
+        Me.pnlGeld.Controls.Add(Me.pic50rp)
+        Me.pnlGeld.Controls.Add(Me.pi1Fr)
+        Me.pnlGeld.Controls.Add(Me.pic20rp)
+        Me.pnlGeld.Location = New System.Drawing.Point(506, 100)
+        Me.pnlGeld.Name = "pnlGeld"
+        Me.pnlGeld.Size = New System.Drawing.Size(230, 170)
+        Me.pnlGeld.TabIndex = 31
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(771, 434)
-        Me.Controls.Add(Me.Label7)
+        Me.ClientSize = New System.Drawing.Size(771, 668)
+        Me.Controls.Add(Me.pnlGeld)
+        Me.Controls.Add(Me.pnlGeldschlitz)
+        Me.Controls.Add(Me.pnlOutputAll)
         Me.Controls.Add(Me.lblSelection)
         Me.Controls.Add(Me.pnlPreis)
-        Me.Controls.Add(Me.picGeldSchlitz)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.pic10rp)
-        Me.Controls.Add(Me.pic20rp)
-        Me.Controls.Add(Me.pi1Fr)
-        Me.Controls.Add(Me.pic50rp)
-        Me.Controls.Add(Me.pic2Fr)
-        Me.Controls.Add(Me.pic5Fr)
+        Me.Controls.Add(Me.btnBestaetigen)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "Form1"
@@ -368,13 +438,16 @@ Partial Class Form1
         Me.pnlSize.PerformLayout()
         Me.pnlPreis.ResumeLayout(False)
         Me.pnlPreis.PerformLayout()
-        CType(Me.picGeldSchlitz, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pi1Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlOutputAll.ResumeLayout(False)
+        Me.pnlGeldschlitz.ResumeLayout(False)
+        Me.pnlGeldschlitz.PerformLayout()
+        Me.pnlGeld.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -389,23 +462,30 @@ Partial Class Form1
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents cmbType As System.Windows.Forms.ComboBox
     Friend WithEvents pnlSize As System.Windows.Forms.Panel
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents lblPreis As System.Windows.Forms.Label
+    Friend WithEvents lblPreisFr As System.Windows.Forms.Label
     Friend WithEvents pic5Fr As System.Windows.Forms.PictureBox
     Friend WithEvents pic2Fr As System.Windows.Forms.PictureBox
     Friend WithEvents pic50rp As System.Windows.Forms.PictureBox
     Friend WithEvents pi1Fr As System.Windows.Forms.PictureBox
     Friend WithEvents pic20rp As System.Windows.Forms.PictureBox
     Friend WithEvents pic10rp As System.Windows.Forms.PictureBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents picGeldSchlitz As System.Windows.Forms.PictureBox
+    Friend WithEvents lblBezahltFr As System.Windows.Forms.Label
+    Friend WithEvents lblZuBezahlenFr As System.Windows.Forms.Label
+    Friend WithEvents lblBezahlt As System.Windows.Forms.Label
+    Friend WithEvents lblZuBezahlen As System.Windows.Forms.Label
+    Friend WithEvents btnBestaetigen As System.Windows.Forms.Button
     Friend WithEvents pnlPreis As System.Windows.Forms.Panel
-    Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
     Friend WithEvents lblSelection As System.Windows.Forms.Label
-    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents lblGeldschlitz As System.Windows.Forms.Label
+    Friend WithEvents pnlVerticalLeft As System.Windows.Forms.Panel
+    Friend WithEvents pnlVerticalRight As System.Windows.Forms.Panel
+    Friend WithEvents pnlVerticalBack As System.Windows.Forms.Panel
+    Friend WithEvents pnlHorizontalTop As System.Windows.Forms.Panel
+    Friend WithEvents pnlHorizontalLower As System.Windows.Forms.Panel
+    Friend WithEvents pnlHorizontalBack As System.Windows.Forms.Panel
+    Friend WithEvents pnlOutputAll As System.Windows.Forms.Panel
+    Friend WithEvents pnlGeldschlitz As System.Windows.Forms.Panel
+    Friend WithEvents pnlGeld As System.Windows.Forms.Panel
 
 End Class
