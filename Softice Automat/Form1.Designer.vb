@@ -24,11 +24,11 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lstGeschmack = New System.Windows.Forms.ListBox()
-        Me.RadioButton5 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.rbtSehrKlein = New System.Windows.Forms.RadioButton()
+        Me.rbtKlein = New System.Windows.Forms.RadioButton()
+        Me.rbtMittel = New System.Windows.Forms.RadioButton()
+        Me.rbtGross = New System.Windows.Forms.RadioButton()
+        Me.rbtExtraGross = New System.Windows.Forms.RadioButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.pnlSize = New System.Windows.Forms.Panel()
         Me.cmbType = New System.Windows.Forms.ComboBox()
@@ -51,7 +51,6 @@ Partial Class Form1
         Me.pnlOutputAll = New System.Windows.Forms.Panel()
         Me.pnlGeldschlitz = New System.Windows.Forms.Panel()
         Me.pnlGeld = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.pnlSize.SuspendLayout()
@@ -85,60 +84,60 @@ Partial Class Form1
         Me.lstGeschmack.Size = New System.Drawing.Size(120, 147)
         Me.lstGeschmack.TabIndex = 0
         '
-        'RadioButton5
+        'rbtSehrKlein
         '
-        Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Location = New System.Drawing.Point(3, 95)
-        Me.RadioButton5.Name = "RadioButton5"
-        Me.RadioButton5.Size = New System.Drawing.Size(73, 17)
-        Me.RadioButton5.TabIndex = 4
-        Me.RadioButton5.TabStop = True
-        Me.RadioButton5.Text = "Sehr Klein"
-        Me.RadioButton5.UseVisualStyleBackColor = True
+        Me.rbtSehrKlein.AutoSize = True
+        Me.rbtSehrKlein.Location = New System.Drawing.Point(3, 95)
+        Me.rbtSehrKlein.Name = "rbtSehrKlein"
+        Me.rbtSehrKlein.Size = New System.Drawing.Size(73, 17)
+        Me.rbtSehrKlein.TabIndex = 4
+        Me.rbtSehrKlein.TabStop = True
+        Me.rbtSehrKlein.Text = "Sehr Klein"
+        Me.rbtSehrKlein.UseVisualStyleBackColor = True
         '
-        'RadioButton4
+        'rbtKlein
         '
-        Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(3, 72)
-        Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(48, 17)
-        Me.RadioButton4.TabIndex = 3
-        Me.RadioButton4.TabStop = True
-        Me.RadioButton4.Text = "Klein"
-        Me.RadioButton4.UseVisualStyleBackColor = True
+        Me.rbtKlein.AutoSize = True
+        Me.rbtKlein.Location = New System.Drawing.Point(3, 72)
+        Me.rbtKlein.Name = "rbtKlein"
+        Me.rbtKlein.Size = New System.Drawing.Size(48, 17)
+        Me.rbtKlein.TabIndex = 3
+        Me.rbtKlein.TabStop = True
+        Me.rbtKlein.Text = "Klein"
+        Me.rbtKlein.UseVisualStyleBackColor = True
         '
-        'RadioButton3
+        'rbtMittel
         '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(3, 49)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton3.TabIndex = 2
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Mittel"
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.rbtMittel.AutoSize = True
+        Me.rbtMittel.Location = New System.Drawing.Point(3, 49)
+        Me.rbtMittel.Name = "rbtMittel"
+        Me.rbtMittel.Size = New System.Drawing.Size(50, 17)
+        Me.rbtMittel.TabIndex = 2
+        Me.rbtMittel.TabStop = True
+        Me.rbtMittel.Text = "Mittel"
+        Me.rbtMittel.UseVisualStyleBackColor = True
         '
-        'RadioButton2
+        'rbtGross
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(3, 26)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(52, 17)
-        Me.RadioButton2.TabIndex = 1
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Gross"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.rbtGross.AutoSize = True
+        Me.rbtGross.Location = New System.Drawing.Point(3, 26)
+        Me.rbtGross.Name = "rbtGross"
+        Me.rbtGross.Size = New System.Drawing.Size(52, 17)
+        Me.rbtGross.TabIndex = 1
+        Me.rbtGross.TabStop = True
+        Me.rbtGross.Text = "Gross"
+        Me.rbtGross.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'rbtExtraGross
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(3, 3)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(79, 17)
-        Me.RadioButton1.TabIndex = 0
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Extra Gross"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.rbtExtraGross.AutoSize = True
+        Me.rbtExtraGross.Location = New System.Drawing.Point(3, 3)
+        Me.rbtExtraGross.Name = "rbtExtraGross"
+        Me.rbtExtraGross.Size = New System.Drawing.Size(79, 17)
+        Me.rbtExtraGross.TabIndex = 0
+        Me.rbtExtraGross.TabStop = True
+        Me.rbtExtraGross.Text = "Extra Gross"
+        Me.rbtExtraGross.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -153,11 +152,11 @@ Partial Class Form1
         '
         'pnlSize
         '
-        Me.pnlSize.Controls.Add(Me.RadioButton5)
-        Me.pnlSize.Controls.Add(Me.RadioButton1)
-        Me.pnlSize.Controls.Add(Me.RadioButton4)
-        Me.pnlSize.Controls.Add(Me.RadioButton2)
-        Me.pnlSize.Controls.Add(Me.RadioButton3)
+        Me.pnlSize.Controls.Add(Me.rbtSehrKlein)
+        Me.pnlSize.Controls.Add(Me.rbtExtraGross)
+        Me.pnlSize.Controls.Add(Me.rbtKlein)
+        Me.pnlSize.Controls.Add(Me.rbtGross)
+        Me.pnlSize.Controls.Add(Me.rbtMittel)
         Me.pnlSize.Location = New System.Drawing.Point(7, 46)
         Me.pnlSize.Name = "pnlSize"
         Me.pnlSize.Size = New System.Drawing.Size(109, 131)
@@ -357,22 +356,12 @@ Partial Class Form1
         Me.pnlGeld.Size = New System.Drawing.Size(230, 170)
         Me.pnlGeld.TabIndex = 31
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(589, 501)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 32
-        Me.Button1.Text = "Animate Cup"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(771, 668)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.pnlGeld)
         Me.Controls.Add(Me.pnlGeldschlitz)
         Me.Controls.Add(Me.pnlOutputAll)
@@ -404,11 +393,11 @@ Partial Class Form1
     End Sub
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents lstGeschmack As System.Windows.Forms.ListBox
-    Friend WithEvents RadioButton5 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton4 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton3 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
+    Friend WithEvents rbtSehrKlein As System.Windows.Forms.RadioButton
+    Friend WithEvents rbtKlein As System.Windows.Forms.RadioButton
+    Friend WithEvents rbtMittel As System.Windows.Forms.RadioButton
+    Friend WithEvents rbtGross As System.Windows.Forms.RadioButton
+    Friend WithEvents rbtExtraGross As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents cmbType As System.Windows.Forms.ComboBox
     Friend WithEvents pnlSize As System.Windows.Forms.Panel
@@ -431,6 +420,5 @@ Partial Class Form1
     Friend WithEvents pnlOutputAll As System.Windows.Forms.Panel
     Friend WithEvents pnlGeldschlitz As System.Windows.Forms.Panel
     Friend WithEvents pnlGeld As System.Windows.Forms.Panel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class
