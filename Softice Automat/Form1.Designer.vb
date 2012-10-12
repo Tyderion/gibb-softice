@@ -48,15 +48,10 @@ Partial Class Form1
         Me.pic2Fr = New System.Windows.Forms.PictureBox()
         Me.pic5Fr = New System.Windows.Forms.PictureBox()
         Me.lblGeldschlitz = New System.Windows.Forms.Label()
-        Me.pnlVerticalLeft = New System.Windows.Forms.Panel()
-        Me.pnlVerticalRight = New System.Windows.Forms.Panel()
-        Me.pnlVerticalBack = New System.Windows.Forms.Panel()
-        Me.pnlHorizontalTop = New System.Windows.Forms.Panel()
-        Me.pnlHorizontalLower = New System.Windows.Forms.Panel()
-        Me.pnlHorizontalBack = New System.Windows.Forms.Panel()
         Me.pnlOutputAll = New System.Windows.Forms.Panel()
         Me.pnlGeldschlitz = New System.Windows.Forms.Panel()
         Me.pnlGeld = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.pnlSize.SuspendLayout()
@@ -67,7 +62,6 @@ Partial Class Form1
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnlOutputAll.SuspendLayout()
         Me.pnlGeldschlitz.SuspendLayout()
         Me.pnlGeld.SuspendLayout()
         Me.SuspendLayout()
@@ -334,63 +328,9 @@ Partial Class Form1
         Me.lblGeldschlitz.TabIndex = 24
         Me.lblGeldschlitz.Text = "                                    "
         '
-        'pnlVerticalLeft
-        '
-        Me.pnlVerticalLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlVerticalLeft.Location = New System.Drawing.Point(47, 52)
-        Me.pnlVerticalLeft.Name = "pnlVerticalLeft"
-        Me.pnlVerticalLeft.Size = New System.Drawing.Size(1, 250)
-        Me.pnlVerticalLeft.TabIndex = 25
-        '
-        'pnlVerticalRight
-        '
-        Me.pnlVerticalRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlVerticalRight.Location = New System.Drawing.Point(312, 52)
-        Me.pnlVerticalRight.Name = "pnlVerticalRight"
-        Me.pnlVerticalRight.Size = New System.Drawing.Size(1, 250)
-        Me.pnlVerticalRight.TabIndex = 26
-        '
-        'pnlVerticalBack
-        '
-        Me.pnlVerticalBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlVerticalBack.Location = New System.Drawing.Point(138, 52)
-        Me.pnlVerticalBack.Name = "pnlVerticalBack"
-        Me.pnlVerticalBack.Size = New System.Drawing.Size(1, 190)
-        Me.pnlVerticalBack.TabIndex = 26
-        '
-        'pnlHorizontalTop
-        '
-        Me.pnlHorizontalTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlHorizontalTop.Location = New System.Drawing.Point(47, 52)
-        Me.pnlHorizontalTop.Name = "pnlHorizontalTop"
-        Me.pnlHorizontalTop.Size = New System.Drawing.Size(266, 1)
-        Me.pnlHorizontalTop.TabIndex = 26
-        '
-        'pnlHorizontalLower
-        '
-        Me.pnlHorizontalLower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlHorizontalLower.Location = New System.Drawing.Point(47, 301)
-        Me.pnlHorizontalLower.Name = "pnlHorizontalLower"
-        Me.pnlHorizontalLower.Size = New System.Drawing.Size(266, 1)
-        Me.pnlHorizontalLower.TabIndex = 27
-        '
-        'pnlHorizontalBack
-        '
-        Me.pnlHorizontalBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlHorizontalBack.Location = New System.Drawing.Point(138, 241)
-        Me.pnlHorizontalBack.Name = "pnlHorizontalBack"
-        Me.pnlHorizontalBack.Size = New System.Drawing.Size(174, 1)
-        Me.pnlHorizontalBack.TabIndex = 28
-        '
         'pnlOutputAll
         '
-        Me.pnlOutputAll.Controls.Add(Me.pnlHorizontalTop)
-        Me.pnlOutputAll.Controls.Add(Me.pnlHorizontalBack)
-        Me.pnlOutputAll.Controls.Add(Me.pnlVerticalLeft)
-        Me.pnlOutputAll.Controls.Add(Me.pnlHorizontalLower)
-        Me.pnlOutputAll.Controls.Add(Me.pnlVerticalRight)
-        Me.pnlOutputAll.Controls.Add(Me.pnlVerticalBack)
-        Me.pnlOutputAll.Location = New System.Drawing.Point(178, 296)
+        Me.pnlOutputAll.Location = New System.Drawing.Point(167, 293)
         Me.pnlOutputAll.Name = "pnlOutputAll"
         Me.pnlOutputAll.Size = New System.Drawing.Size(370, 348)
         Me.pnlOutputAll.TabIndex = 29
@@ -417,11 +357,22 @@ Partial Class Form1
         Me.pnlGeld.Size = New System.Drawing.Size(230, 170)
         Me.pnlGeld.TabIndex = 31
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(589, 501)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 32
+        Me.Button1.Text = "Animate Cup"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(771, 668)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.pnlGeld)
         Me.Controls.Add(Me.pnlGeldschlitz)
         Me.Controls.Add(Me.pnlOutputAll)
@@ -444,7 +395,6 @@ Partial Class Form1
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnlOutputAll.ResumeLayout(False)
         Me.pnlGeldschlitz.ResumeLayout(False)
         Me.pnlGeldschlitz.PerformLayout()
         Me.pnlGeld.ResumeLayout(False)
@@ -478,14 +428,9 @@ Partial Class Form1
     Friend WithEvents pnlPreis As System.Windows.Forms.Panel
     Friend WithEvents lblSelection As System.Windows.Forms.Label
     Friend WithEvents lblGeldschlitz As System.Windows.Forms.Label
-    Friend WithEvents pnlVerticalLeft As System.Windows.Forms.Panel
-    Friend WithEvents pnlVerticalRight As System.Windows.Forms.Panel
-    Friend WithEvents pnlVerticalBack As System.Windows.Forms.Panel
-    Friend WithEvents pnlHorizontalTop As System.Windows.Forms.Panel
-    Friend WithEvents pnlHorizontalLower As System.Windows.Forms.Panel
-    Friend WithEvents pnlHorizontalBack As System.Windows.Forms.Panel
     Friend WithEvents pnlOutputAll As System.Windows.Forms.Panel
     Friend WithEvents pnlGeldschlitz As System.Windows.Forms.Panel
     Friend WithEvents pnlGeld As System.Windows.Forms.Panel
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class
