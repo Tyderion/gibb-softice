@@ -200,24 +200,22 @@
             intSum += intaMoneyBack(i) * msngCoins(i)
         Next
         lblSelection.Text += " = " + intSum.ToString
-        intMoneyBack = {0, 0, 0, 0, 0, 0}
     End Sub
 
-    Private intMoneyBack() As Integer = {0, 0, 0, 0, 0, 0}
     Private Function splitmoney(ByVal sngMoney As Double)
-
-
-        If (sngMoney <= 0 Or sngMoney > 500) Then
-            Return intMoneyBack
+        'Returns an array containing an amount for the different coins which make up sngMoney. 
+        If (sngMoney <= 0.05 Or sngMoney > 500) Then
+            Return {0, 0, 0, 0, 0, 0}
         End If
 
         For intIndex As Integer = 0 To 5
             If sngMoney >= msngCoins(intIndex) - 0.05 Then '-0.05 Because of Double precision problems :)
+                Dim intMoneyBack As Integer() = splitmoney(sngMoney - msngCoins(intIndex))
                 intMoneyBack(intIndex) += 1
-                Return splitmoney(sngMoney - msngCoins(intIndex))
+                Return intMoneyBack
             End If
         Next
-        Return intMoneyBack
+        Return {0, 0, 0, 0, 0, 0}
 
     End Function
 
@@ -303,7 +301,9 @@
         updatePreis()
     End Sub
 
+
     Private Sub btnGeldZuerueck_Click(sender As Object, e As EventArgs) Handles btnGeldZuerueck.Click
+        msngBezahlt = 50000
         updatePreis()
         geldAusgabe()
         msngBezahlt = 0
