@@ -13,7 +13,8 @@
     Private msngContainerHeight As Single
     Private msngHeightTimer As Single = 1
     Private msngPreis As Single = 10
-    Private msngBezahlt As Single = 0
+    Private msngBezahlt As Double = 0
+    Private msngCoins() As Double = {5, 2, 1, 0.5, 0.2, 0.1}
 
     'TODO: Rename Radiobuttons and Groupboxes!
     Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -191,7 +192,34 @@
         Dim gr As Graphics = pnlGeldAusgabe.CreateGraphics
         Dim img As Image = pic50rp.Image
         gr.DrawImage(img, New Point(0, 0))
+        Dim intaMoneyBack() As Integer = splitmoney(msngBezahlt)
+        lblSelection.Text = "Geld zurück: " + msngBezahlt.ToString + ": "
+        Dim intSum As Single = 0
+        For i = 0 To 5
+            lblSelection.Text += ", " + intaMoneyBack(i).ToString + "*" + msngCoins(i).ToString
+            intSum += intaMoneyBack(i) * msngCoins(i)
+        Next
+        lblSelection.Text += " = " + intSum.ToString
+        intMoneyBack = {0, 0, 0, 0, 0, 0}
     End Sub
+
+    Private intMoneyBack() As Integer = {0, 0, 0, 0, 0, 0}
+    Private Function splitmoney(ByVal sngMoney As Double)
+
+
+        If (sngMoney <= 0 Or sngMoney > 500) Then
+            Return intMoneyBack
+        End If
+
+        For intIndex As Integer = 0 To 5
+            If sngMoney >= msngCoins(intIndex) - 0.05 Then '-0.05 Because of Double precision problems :)
+                intMoneyBack(intIndex) += 1
+                Return splitmoney(sngMoney - msngCoins(intIndex))
+            End If
+        Next
+        Return intMoneyBack
+
+    End Function
 
 
     Private Sub pnlOutputAll_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlOutputAll.Paint
@@ -276,8 +304,8 @@
     End Sub
 
     Private Sub btnGeldZuerueck_Click(sender As Object, e As EventArgs) Handles btnGeldZuerueck.Click
-        msngBezahlt = 0
         updatePreis()
         geldAusgabe()
+        msngBezahlt = 0
     End Sub
 End Class
