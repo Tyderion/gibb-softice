@@ -111,10 +111,10 @@ Partial Class Form1
         Me.rbtMittel.AutoSize = True
         Me.rbtMittel.Location = New System.Drawing.Point(3, 49)
         Me.rbtMittel.Name = "rbtMittel"
-        Me.rbtMittel.Size = New System.Drawing.Size(50, 17)
+        Me.rbtMittel.Size = New System.Drawing.Size(80, 17)
         Me.rbtMittel.TabIndex = 2
         Me.rbtMittel.TabStop = True
-        Me.rbtMittel.Text = "Mittel"
+        Me.rbtMittel.Text = "Mittel Gross"
         Me.rbtMittel.UseVisualStyleBackColor = True
         '
         'rbtGross
@@ -165,9 +165,11 @@ Partial Class Form1
         'cmbType
         '
         Me.cmbType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList
+        Me.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbType.FormattingEnabled = True
         Me.cmbType.Items.AddRange(New Object() {"Cornet", "Becher"})
         Me.cmbType.Location = New System.Drawing.Point(7, 19)
+        Me.cmbType.MaxDropDownItems = 2
         Me.cmbType.Name = "cmbType"
         Me.cmbType.Size = New System.Drawing.Size(121, 21)
         Me.cmbType.TabIndex = 0
