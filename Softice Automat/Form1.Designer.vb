@@ -22,6 +22,7 @@ Partial Class Form1
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lstGeschmack = New System.Windows.Forms.ListBox()
         Me.rbtSehrKlein = New System.Windows.Forms.RadioButton()
@@ -51,6 +52,10 @@ Partial Class Form1
         Me.pnlOutputAll = New System.Windows.Forms.Panel()
         Me.pnlGeldschlitz = New System.Windows.Forms.Panel()
         Me.pnlGeld = New System.Windows.Forms.Panel()
+        Me.pnlContainer = New System.Windows.Forms.Panel()
+        Me.tmrContainerAnimation = New System.Windows.Forms.Timer(Me.components)
+        Me.btnGeldZuerueck = New System.Windows.Forms.Button()
+        Me.pnlGeldAusgabe = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.pnlSize.SuspendLayout()
@@ -232,7 +237,7 @@ Partial Class Form1
         '
         Me.btnBestaetigen.Location = New System.Drawing.Point(316, 220)
         Me.btnBestaetigen.Name = "btnBestaetigen"
-        Me.btnBestaetigen.Size = New System.Drawing.Size(117, 49)
+        Me.btnBestaetigen.Size = New System.Drawing.Size(100, 49)
         Me.btnBestaetigen.TabIndex = 20
         Me.btnBestaetigen.Text = "Wahl bestätigen"
         Me.btnBestaetigen.UseVisualStyleBackColor = True
@@ -331,9 +336,9 @@ Partial Class Form1
         '
         'pnlOutputAll
         '
-        Me.pnlOutputAll.Location = New System.Drawing.Point(167, 293)
+        Me.pnlOutputAll.Location = New System.Drawing.Point(214, 276)
         Me.pnlOutputAll.Name = "pnlOutputAll"
-        Me.pnlOutputAll.Size = New System.Drawing.Size(370, 348)
+        Me.pnlOutputAll.Size = New System.Drawing.Size(354, 336)
         Me.pnlOutputAll.TabIndex = 29
         '
         'pnlGeldschlitz
@@ -358,12 +363,44 @@ Partial Class Form1
         Me.pnlGeld.Size = New System.Drawing.Size(230, 170)
         Me.pnlGeld.TabIndex = 31
         '
+        'pnlContainer
+        '
+        Me.pnlContainer.BackColor = System.Drawing.Color.Transparent
+        Me.pnlContainer.Location = New System.Drawing.Point(12, 384)
+        Me.pnlContainer.Name = "pnlContainer"
+        Me.pnlContainer.Size = New System.Drawing.Size(196, 171)
+        Me.pnlContainer.TabIndex = 0
+        '
+        'tmrContainerAnimation
+        '
+        Me.tmrContainerAnimation.Interval = 50
+        '
+        'btnGeldZuerueck
+        '
+        Me.btnGeldZuerueck.Location = New System.Drawing.Point(422, 220)
+        Me.btnGeldZuerueck.Name = "btnGeldZuerueck"
+        Me.btnGeldZuerueck.Size = New System.Drawing.Size(75, 49)
+        Me.btnGeldZuerueck.TabIndex = 32
+        Me.btnGeldZuerueck.Text = "Geld Zurück"
+        Me.btnGeldZuerueck.UseVisualStyleBackColor = True
+        '
+        'pnlGeldAusgabe
+        '
+        Me.pnlGeldAusgabe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlGeldAusgabe.Location = New System.Drawing.Point(589, 440)
+        Me.pnlGeldAusgabe.Name = "pnlGeldAusgabe"
+        Me.pnlGeldAusgabe.Size = New System.Drawing.Size(132, 106)
+        Me.pnlGeldAusgabe.TabIndex = 33
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(771, 668)
+        Me.ClientSize = New System.Drawing.Size(771, 666)
+        Me.Controls.Add(Me.pnlGeldAusgabe)
+        Me.Controls.Add(Me.btnGeldZuerueck)
+        Me.Controls.Add(Me.pnlContainer)
         Me.Controls.Add(Me.pnlGeld)
         Me.Controls.Add(Me.pnlGeldschlitz)
         Me.Controls.Add(Me.pnlOutputAll)
@@ -422,5 +459,9 @@ Partial Class Form1
     Friend WithEvents pnlOutputAll As System.Windows.Forms.Panel
     Friend WithEvents pnlGeldschlitz As System.Windows.Forms.Panel
     Friend WithEvents pnlGeld As System.Windows.Forms.Panel
+    Friend WithEvents pnlContainer As System.Windows.Forms.Panel
+    Friend WithEvents tmrContainerAnimation As System.Windows.Forms.Timer
+    Friend WithEvents btnGeldZuerueck As System.Windows.Forms.Button
+    Friend WithEvents pnlGeldAusgabe As System.Windows.Forms.Panel
 
 End Class
