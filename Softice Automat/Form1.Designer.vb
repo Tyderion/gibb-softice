@@ -44,7 +44,7 @@ Partial Class Form1
         Me.lblSelection = New System.Windows.Forms.Label()
         Me.pic10rp = New System.Windows.Forms.PictureBox()
         Me.pic20rp = New System.Windows.Forms.PictureBox()
-        Me.pi1Fr = New System.Windows.Forms.PictureBox()
+        Me.pic1Fr = New System.Windows.Forms.PictureBox()
         Me.pic50rp = New System.Windows.Forms.PictureBox()
         Me.pic2Fr = New System.Windows.Forms.PictureBox()
         Me.pic5Fr = New System.Windows.Forms.PictureBox()
@@ -56,13 +56,14 @@ Partial Class Form1
         Me.tmrContainerAnimation = New System.Windows.Forms.Timer(Me.components)
         Me.btnGeldZuerueck = New System.Windows.Forms.Button()
         Me.pnlGeldAusgabe = New System.Windows.Forms.Panel()
+        Me.lblError = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.pnlSize.SuspendLayout()
         Me.pnlPreis.SuspendLayout()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pi1Fr, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pic1Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -284,15 +285,15 @@ Partial Class Form1
         Me.pic20rp.TabIndex = 13
         Me.pic20rp.TabStop = False
         '
-        'pi1Fr
+        'pic1Fr
         '
-        Me.pi1Fr.Image = Global.Softice_Automat.My.Resources.Resources._1Fr_front
-        Me.pi1Fr.Location = New System.Drawing.Point(147, 13)
-        Me.pi1Fr.Name = "pi1Fr"
-        Me.pi1Fr.Size = New System.Drawing.Size(68, 72)
-        Me.pi1Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pi1Fr.TabIndex = 12
-        Me.pi1Fr.TabStop = False
+        Me.pic1Fr.Image = Global.Softice_Automat.My.Resources.Resources._1Fr_front
+        Me.pic1Fr.Location = New System.Drawing.Point(147, 13)
+        Me.pic1Fr.Name = "pic1Fr"
+        Me.pic1Fr.Size = New System.Drawing.Size(68, 72)
+        Me.pic1Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pic1Fr.TabIndex = 12
+        Me.pic1Fr.TabStop = False
         '
         'pic50rp
         '
@@ -356,7 +357,7 @@ Partial Class Form1
         Me.pnlGeld.Controls.Add(Me.pic5Fr)
         Me.pnlGeld.Controls.Add(Me.pic2Fr)
         Me.pnlGeld.Controls.Add(Me.pic50rp)
-        Me.pnlGeld.Controls.Add(Me.pi1Fr)
+        Me.pnlGeld.Controls.Add(Me.pic1Fr)
         Me.pnlGeld.Controls.Add(Me.pic20rp)
         Me.pnlGeld.Location = New System.Drawing.Point(506, 100)
         Me.pnlGeld.Name = "pnlGeld"
@@ -387,17 +388,27 @@ Partial Class Form1
         'pnlGeldAusgabe
         '
         Me.pnlGeldAusgabe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlGeldAusgabe.Location = New System.Drawing.Point(589, 440)
+        Me.pnlGeldAusgabe.Location = New System.Drawing.Point(234, 618)
         Me.pnlGeldAusgabe.Name = "pnlGeldAusgabe"
-        Me.pnlGeldAusgabe.Size = New System.Drawing.Size(132, 106)
+        Me.pnlGeldAusgabe.Size = New System.Drawing.Size(280, 95)
         Me.pnlGeldAusgabe.TabIndex = 33
+        '
+        'lblError
+        '
+        Me.lblError.AutoSize = True
+        Me.lblError.ForeColor = System.Drawing.Color.Red
+        Me.lblError.Location = New System.Drawing.Point(330, 79)
+        Me.lblError.Name = "lblError"
+        Me.lblError.Size = New System.Drawing.Size(0, 13)
+        Me.lblError.TabIndex = 34
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(771, 666)
+        Me.ClientSize = New System.Drawing.Size(771, 719)
+        Me.Controls.Add(Me.lblError)
         Me.Controls.Add(Me.pnlGeldAusgabe)
         Me.Controls.Add(Me.btnGeldZuerueck)
         Me.Controls.Add(Me.pnlContainer)
@@ -419,7 +430,7 @@ Partial Class Form1
         Me.pnlPreis.PerformLayout()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pi1Fr, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pic1Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).EndInit()
@@ -445,7 +456,7 @@ Partial Class Form1
     Friend WithEvents pic5Fr As System.Windows.Forms.PictureBox
     Friend WithEvents pic2Fr As System.Windows.Forms.PictureBox
     Friend WithEvents pic50rp As System.Windows.Forms.PictureBox
-    Friend WithEvents pi1Fr As System.Windows.Forms.PictureBox
+    Friend WithEvents pic1Fr As System.Windows.Forms.PictureBox
     Friend WithEvents pic20rp As System.Windows.Forms.PictureBox
     Friend WithEvents pic10rp As System.Windows.Forms.PictureBox
     Friend WithEvents lblBezahltFr As System.Windows.Forms.Label
@@ -463,5 +474,6 @@ Partial Class Form1
     Friend WithEvents tmrContainerAnimation As System.Windows.Forms.Timer
     Friend WithEvents btnGeldZuerueck As System.Windows.Forms.Button
     Friend WithEvents pnlGeldAusgabe As System.Windows.Forms.Panel
+    Friend WithEvents lblError As System.Windows.Forms.Label
 
 End Class

@@ -1,20 +1,35 @@
 ﻿Public Class Form1
     Private mblntext_visible As Boolean
 
+
+    ' Variables defining the output section
     Private mpntOutputTop As Point = New Point(20, 50)
     Private mpntOutputBottom As Point = New Point(300, 300)
+    ' Variables for the Animation
+    Private mblnRedrawChangeHappened = False
+    Private msngContainerHeight As Single
+    Private msngHeightTimer As Single = 1
+
+    ' Variables representing the selection
     Private mblnIsCupVisible As Boolean = False
     Private msngSizeSelection As Single = 1
     Private mblnCup As Boolean = True
+
+
+    ' Strings to represent the selection
     Private mstrGroesse As String = "Extra Gross"
     Private mstrType As String = "er Becher"
     Private mstrGeschmack As String = " mit Schokoladeneis"
-    Private mblnWhatsChanged() As Boolean = {False, False, False}
-    Private msngContainerHeight As Single
-    Private msngHeightTimer As Single = 1
-    Private msngPreis As Single = 10
-    Private msngBezahlt As Double = 0
-    Private msngCoins() As Double = {5, 2, 1, 0.5, 0.2, 0.1}
+
+
+    ' Variables to track how much it costs and how much ahs been paid
+    Private msngPreis As Single
+    Private msngBezahlt As Single = 0
+
+    ' Variables for the coin values, images and signs
+    Private msngCoinValues() As Single = {5, 2, 1, 0.5, 0.2, 0.1}
+    Private mimgCoinImages() As Image
+    Private msngCoinSizes() As Single = {1, 0.8, 0.65, 0.45, 0.54, 0.43}
 
     'TODO: Rename Radiobuttons and Groupboxes!
     Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -26,7 +41,7 @@
         lstGeschmack.SelectedIndex = 0
         cmbType.SelectedIndex = 1
         pnlContainer.BringToFront()
-
+        mimgCoinImages = {pic5Fr.Image, pic2Fr.Image, pic1Fr.Image, pic50rp.Image, pic20rp.Image, pic10rp.Image}
     End Sub
 
     Private Sub lstGeschmack_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lstGeschmack.SelectedIndexChanged
@@ -36,7 +51,6 @@
         ElseIf lstGeschmack.SelectedIndex = 0 Then
             mstrGeschmack = " mit " + lstGeschmack.SelectedItem.ToString + "neis." 'Schokoladeneis
         End If
-        mblnWhatsChanged(2) = True
         AnimeOutputContainer(pnlOutputAll)
     End Sub
 
@@ -125,13 +139,14 @@
 
     Private Sub tmrContainerAnimation_Tick(sender As Object, e As EventArgs) Handles tmrContainerAnimation.Tick
         pnlContainer.Height = msngHeightTimer
-        pnlContainer.Location = New Point(Me.Width / 2 - 100 * msngSizeSelection, (Me.Height - 150 - 50 * (1 - msngSizeSelection)) - msngHeightTimer)
+        pnlContainer.Location = New Point(pnlOutputAll.Width / 2 - 20 - 50 * msngSizeSelection + pnlOutputAll.Location.X, _
+                                          (pnlOutputAll.Height - 50 - 30 * (1 - msngSizeSelection)) - msngHeightTimer + pnlOutputAll.Location.Y)
         msngHeightTimer += 0.8
         If mblnCup Then
-            DrawCup(Color.Black, pnlContainer, mblnWhatsChanged(0) Or mblnWhatsChanged(1), msngSizeSelection)
+            DrawCup(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
 
         Else
-            DrawCornet(Color.Black, pnlContainer, mblnWhatsChanged(0) Or mblnWhatsChanged(1), msngSizeSelection)
+            DrawCornet(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
         End If
         If msngHeightTimer >= msngContainerHeight Then
             msngHeightTimer = 1
@@ -140,19 +155,27 @@
 
     End Sub
 
-
+    Private Function sngRealCost() As Single
+        Return msngPreis * If(mblnCup, 0.8, 1.0)
+    End Function
     Private Sub updatePreis()
-        Dim sngpreis = (msngPreis * If(mblnCup, 0.8, 1))
-        lblPreisFr.Text = "CHF " + sngpreis.ToString("F")
+        lblPreisFr.Text = "CHF " + sngRealCost().ToString("F")
         lblBezahltFr.Text = "CHF " + msngBezahlt.ToString("F")
-        lblZuBezahlenFr.Text = "CHF " + (sngpreis - msngBezahlt).ToString("F")
+        lblZuBezahlenFr.Text = "CHF " + (sngRealCost() - msngBezahlt).ToString("F")
+        lblError.Text = ""
+
     End Sub
 
 
 
+
     Private Sub AnimeOutputContainer(ByRef pnl As Panel)
-        msngHeightTimer = 1
-        tmrContainerAnimation.Stop()
+        If mblnRedrawChangeHappened Then
+            msngHeightTimer = 1
+            tmrContainerAnimation.Stop()
+            mblnRedrawChangeHappened = False
+        End If
+
         lblSelection.Text = mstrGroesse + mstrType + mstrGeschmack
         updatePreis()
 
@@ -172,7 +195,11 @@
 
     End Sub
 
-    Private Function strToLower(ByVal str As String, ByVal intIndexOfCapital As Integer)
+    Private Sub CreateSoftIce()
+        'Todo: Create Softice
+    End Sub
+
+    Private Function strToLower(ByVal str As String, ByVal intIndexOfCapital As Integer) As String
         Dim chrarray = str.ToCharArray
         For Int As Integer = 0 To chrarray.Length - 1
             chrarray(Int) = Char.ToLower(chrarray(Int))
@@ -185,33 +212,51 @@
         msngSizeSelection = sngNewSize
         mstrGroesse = strToLower(strText, 0)
         msngPreis = sngNewSize * 10
-        mblnWhatsChanged(0) = True
+        mblnRedrawChangeHappened = True
+        AnimeOutputContainer(pnlOutputAll)
     End Sub
 
-    Private Sub geldAusgabe()
+
+    Private Sub geldAusgabe(ByVal sngAmount As Single)
         Dim gr As Graphics = pnlGeldAusgabe.CreateGraphics
-        Dim img As Image = pic50rp.Image
-        gr.DrawImage(img, New Point(0, 0))
+        gr.Clear(Color.WhiteSmoke)
         Dim intaMoneyBack() As Integer = splitmoney(msngBezahlt)
-        lblSelection.Text = "Geld zurück: " + msngBezahlt.ToString + ": "
-        Dim intSum As Single = 0
-        For i = 0 To 5
-            lblSelection.Text += ", " + intaMoneyBack(i).ToString + "*" + msngCoins(i).ToString
-            intSum += intaMoneyBack(i) * msngCoins(i)
+        For intCurrentCoin As Integer = 0 To intaMoneyBack.Length - 1
+            Dim intCoinAmount As Integer = intaMoneyBack(intCurrentCoin)
+            For intCoinCounter As Integer = 1 To intCoinAmount
+                Dim sngMultiplier As Single = msngCoinSizes(intCurrentCoin)
+                gr.DrawImage(mimgCoinImages(intCurrentCoin), New Rectangle( _
+                             New Point(intCurrentCoin * 40 + intCoinCounter * 10, 95 - 95 * sngMultiplier), _
+                             New Size(95 * sngMultiplier, 95 * sngMultiplier)))
+            Next
+
         Next
-        lblSelection.Text += " = " + intSum.ToString
+        'lblSelection.Text = "Geld zurück: " + msngBezahlt.ToString + ": "
+        'Dim intSum As Single = 0
+        'For i = 0 To 5
+        '    lblSelection.Text += ", " + intaMoneyBack(i).ToString + "*" + msngCoinValues(i).ToString
+        '    intSum += intaMoneyBack(i) * msngCoinValues(i)
+        'Next
+        'lblSelection.Text += " = " + intSum.ToString
     End Sub
 
-    Private Function splitmoney(ByVal sngMoney As Double)
+
+    Private Function splitmoney(ByVal sngMoney As Double) As Integer()
         'Returns an array containing an amount for the different coins which make up sngMoney. 
-        If (sngMoney <= 0.05 Or sngMoney > 500) Then
+        If (sngMoney <= 0.05) Then
             Return {0, 0, 0, 0, 0, 0}
         End If
 
         For intIndex As Integer = 0 To 5
-            If sngMoney >= msngCoins(intIndex) - 0.05 Then '-0.05 Because of Double precision problems :)
-                Dim intMoneyBack As Integer() = splitmoney(sngMoney - msngCoins(intIndex))
-                intMoneyBack(intIndex) += 1
+            If sngMoney >= msngCoinValues(intIndex) - 0.05 Then '-0.05 Because of Double precision problems :)
+                Dim intMoneyBack As Integer()
+                If intIndex = 0 Then
+                    intMoneyBack = splitmoney(sngMoney Mod msngCoinValues(intIndex))
+                    intMoneyBack(intIndex) += sngMoney \ msngCoinValues(intIndex)
+                Else
+                    intMoneyBack = splitmoney(sngMoney - msngCoinValues(intIndex))
+                    intMoneyBack(intIndex) += 1
+                End If
                 Return intMoneyBack
             End If
         Next
@@ -231,7 +276,7 @@
         Else
             mstrType = "es " + cmbType.SelectedItem.ToString
         End If
-        mblnWhatsChanged(1) = True
+        mblnRedrawChangeHappened = True
         AnimeOutputContainer(pnlOutputAll)
     End Sub
 
@@ -239,35 +284,31 @@
         If rbtExtraGross.Checked Then
             setButtonText(rbtExtraGross.Text, 1)
         End If
-        AnimeOutputContainer(pnlOutputAll)
+
     End Sub
 
     Private Sub rbtGross_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtGross.CheckedChanged
         If rbtGross.Checked Then
             setButtonText(rbtGross.Text, 0.8)
         End If
-        AnimeOutputContainer(pnlOutputAll)
     End Sub
 
     Private Sub rbtMittel_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtMittel.CheckedChanged
         If rbtMittel.Checked Then
             setButtonText(rbtMittel.Text, 0.6)
         End If
-        AnimeOutputContainer(pnlOutputAll)
     End Sub
 
     Private Sub rbtKlein_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtKlein.CheckedChanged
         If rbtKlein.Checked Then
             setButtonText(rbtKlein.Text, 0.4)
         End If
-        AnimeOutputContainer(pnlOutputAll)
     End Sub
 
     Private Sub rbtSehrKlein_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtSehrKlein.CheckedChanged
         If rbtSehrKlein.Checked Then
             setButtonText(rbtSehrKlein.Text, 0.3)
         End If
-        AnimeOutputContainer(pnlOutputAll)
     End Sub
 
 
@@ -281,7 +322,7 @@
         updatePreis()
     End Sub
 
-    Private Sub pi1Fr_Click(sender As Object, e As EventArgs) Handles pi1Fr.Click
+    Private Sub pi1Fr_Click(sender As Object, e As EventArgs) Handles pic1Fr.Click
         msngBezahlt += 1
         updatePreis()
     End Sub
@@ -303,9 +344,22 @@
 
 
     Private Sub btnGeldZuerueck_Click(sender As Object, e As EventArgs) Handles btnGeldZuerueck.Click
-        msngBezahlt = 50000
         updatePreis()
-        geldAusgabe()
+        geldAusgabe(msngBezahlt)
         msngBezahlt = 0
+        updatePreis()
+    End Sub
+
+    Private Sub btnBestaetigen_Click(sender As Object, e As EventArgs) Handles btnBestaetigen.Click
+        updatePreis()
+        If sngRealCost() > msngBezahlt Then
+            lblError.Text = "Noch nicht genug Geld. Es fehlen: " + lblZuBezahlenFr.Text
+        Else
+            lblError.Text = ""
+            geldAusgabe(sngRealCost() - msngBezahlt)
+            msngBezahlt = 0
+            CreateSoftIce()
+        End If
+
     End Sub
 End Class
