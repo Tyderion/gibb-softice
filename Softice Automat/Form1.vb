@@ -277,14 +277,6 @@
 
     End Sub
 
-
-
-
-
-
-
-
-
     ' Functions
 
     Private Function strToLowerWithUpperLetter(ByVal str As String, Optional ByVal intIndexOfCapital As Integer = 0) As String
