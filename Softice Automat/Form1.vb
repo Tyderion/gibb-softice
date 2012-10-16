@@ -44,6 +44,10 @@
     Private mimgCoinImages() As Image
     Private msngCoinSizes() As Single = {1, 0.8, 0.65, 0.45, 0.54, 0.43}
 
+    ' Variables for the Animation of the ice itself
+    Private mpntRealTopCenter As Point
+    Private msngRealRadii As Integer()
+
 
 
     Private Sub AnimateOutputContainer(ByRef pnl As Panel)
@@ -65,14 +69,14 @@
         ' Slowly Move the Container upwards and make it get more visible with time
         pnlContainer.Height = msngHeightTimer ' Height is timer variable
         ' The new Location is dependant on the size of the output panel as well as the Location and the sizeMultiplier
-        pnlContainer.Location = New Point(pnlOutputAll.Width / 2 - 20 - 50 * msngSizeSelection + pnlOutputAll.Location.X, _
+        pnlContainer.Location = New Point(pnlOutputAll.Width / 2 - 20 + 20 - 50 * msngSizeSelection + pnlOutputAll.Location.X, _
                                           (pnlOutputAll.Height - 50 - 30 * (1 - msngSizeSelection)) - msngHeightTimer + pnlOutputAll.Location.Y)
         ' The next time the container height will bi by AnimationSpeed bigger
         msngHeightTimer += msngAnimationSpeed
         If mblnCupSelected Then
-            DrawCup(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
+            mpntRealTopCenter = DrawCup(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
         Else
-            DrawCornet(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
+            mpntRealTopCenter = DrawCornet(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
         End If
         ' If the Container is fully visible, stop the timer
         If msngHeightTimer >= msngContainerHeight Then
@@ -95,7 +99,10 @@
     ' Visual Functions (Drawing Stuff)
 
     Private Sub CreateSoftIce()
-        'Todo: Create Softice
+        ' Todo: Create Softice
+        DrawEllipseInPanel(mpntRealTopCenter, New Tuple(Of Integer, Integer)(5, 5), pnlContainer, Color.Red, True)
+        DrawEllipseInPanel(New Point(mpntRealTopCenter.X - msngRealRadii(0), mpntRealTopCenter.Y), New Tuple(Of Integer, Integer)(5, 5), pnlContainer, Color.Red, True)
+        DrawEllipseInPanel(New Point(mpntRealTopCenter.X, mpntRealTopCenter.Y - msngRealRadii(1)), New Tuple(Of Integer, Integer)(5, 5), pnlContainer, Color.Red, True)
     End Sub
 
     Private Sub DrawOutput(ByVal color As Color, ByRef pnl As Panel)
@@ -112,12 +119,13 @@
                     New Point(mpntOutputBottom.X, mpntOutputBottom.Y - 1 / 3 * intHeight)) ' Draw Left line
     End Sub
 
-    Private Sub DrawCup(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
+    Private Function DrawCup(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
         ' Draw the Cup
         Dim gr As Graphics = getClearedGraphics(pnlOutput)
         ' Multiply Radii with sizemultiplier
         Dim sngHorizontalRadius As Single = mintCupHorizontalRadius * sngSizeMultiplier
         Dim sngVerticalRaidus As Single = mintCupVerticalRadius * sngSizeMultiplier
+        msngRealRadii = {sngHorizontalRadius, sngVerticalRaidus}
         Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus) ' Set top so that ellipse is completely visible
         ' Set Height to the sum of all elements
         msngContainerHeight = 2 * sngVerticalRaidus + (pntCenterTop.Y + 50 * sngSizeMultiplier) - (pntCenterTop.Y + 5 * sngSizeMultiplier) + 30 * sngSizeMultiplier * 0.3
@@ -132,8 +140,8 @@
                     New Point(pntCenterTop.X - sngHorizontalRadius + 1, pntCenterTop.Y + 5 * sngSizeMultiplier)) ' Draw left Line
         gr.DrawLine(New Pen(color), New Point(pntCenterTop.X + 45 * sngSizeMultiplier, pntCenterTop.Y + 50 * sngSizeMultiplier), _
                     New Point(pntCenterTop.X + sngHorizontalRadius - 1, pntCenterTop.Y + 5 * sngSizeMultiplier)) ' Draw right Line
-
-    End Sub
+        Return pntCenterTop
+    End Function
 
     Private Function getClearedGraphics(ByVal pnlPanel As Panel) As Graphics
         Dim gr As Graphics = pnlPanel.CreateGraphics
@@ -141,7 +149,7 @@
         Return gr
     End Function
 
-    Private Sub DrawCornet(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
+    Private Function DrawCornet(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
         ' Draw the Cornet
         Dim gr As Graphics = getClearedGraphics(pnlOutput)
         ' Radii get multiplied by the sizeMultiplier
@@ -153,7 +161,7 @@
         End If
         ' CenterTop point is at (X-Radius, Y-Radius) so that everything is visible
         Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus)
-
+        msngRealRadii = {sngHorizontalRadius, sngVerticalRaidus}
         ' Set the container size
         msngContainerHeight = 2 * sngVerticalRaidus + Math.Abs(pntCenterTop.Y - (pntCenterTop.Y + mintCornetHeight * sngSizeMultiplier))
         pnlOutput.Width = 2 * sngHorizontalRadius + 8
@@ -165,8 +173,8 @@
                     New Point(pntCenterTop.X, pntCenterTop.Y + mintCornetHeight * sngSizeMultiplier))
         gr.DrawLine(New Pen(color), New Point(pntCenterTop.X + sngHorizontalRadius, pntCenterTop.Y), _
                     New Point(pntCenterTop.X, pntCenterTop.Y + mintCornetHeight * sngSizeMultiplier))
-
-    End Sub
+        Return pntCenterTop
+    End Function
 
     Private Sub DrawEllipseInPanel(ByVal pntCenter As Point, ByVal tplRadii As Tuple(Of Integer, Integer), ByRef pnl As Panel, ByVal color As Color, ByVal blnFill As Boolean)
         ' Draw an ellipse with the radii tplRadii and the center pntCenter in the panel pnl and the color color.
@@ -237,9 +245,8 @@
     ' Routines for Money and Rückgeld
     Private Sub geldAusgabe(ByVal sngAmount As Single)
         ' Computes a distribution of coin which make up sngAmount and puts the needed coins in the coinoutput area
-        Dim gr As Graphics = pnlGeldAusgabe.CreateGraphics
-        gr.Clear(Color.WhiteSmoke)
-        Dim intaMoneyBack() As Integer = splitmoney(msngBezahlt)
+        Dim gr As Graphics = getClearedGraphics(pnlGeldAusgabe)
+        Dim intaMoneyBack() As Integer = splitmoney(sngAmount)
         For intCurrentCoin As Integer = 0 To intaMoneyBack.Length - 1
             Dim intCoinAmount As Integer = intaMoneyBack(intCurrentCoin)
             For intCoinCounter As Integer = 1 To intCoinAmount
@@ -267,12 +274,17 @@
     Private Sub btnBestaetigen_Click(sender As Object, e As EventArgs) Handles btnBestaetigen.Click
         updatePreis()
         If sngRealCost(msngPreis) > msngBezahlt Then
-            lblError.Text = "Noch nicht genug Geld. Es fehlen: " + lblZuBezahlenFr.Text
+                lblError.Text = "Noch nicht genug Geld. Es fehlen: " + lblZuBezahlenFr.Text
         Else
-            lblError.Text = ""
-            geldAusgabe(sngRealCost(msngPreis) - msngBezahlt)
-            msngBezahlt = 0
-            CreateSoftIce()
+            If tmrContainerAnimation.Enabled Then
+                lblError.Text = "Bitte warten bis der Behälter ganz da ist"
+            Else
+                lblError.Text = ""
+                geldAusgabe(Math.Abs(sngRealCost(msngPreis) - msngBezahlt))
+                msngBezahlt = 0
+                CreateSoftIce()
+            End If
+
         End If
 
     End Sub
