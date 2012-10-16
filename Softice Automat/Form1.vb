@@ -1,19 +1,31 @@
-﻿Public Class Form1
-    Private mblntext_visible As Boolean
+﻿Public Class frmMain
 
 
     ' Variables defining the output section
     Private mpntOutputTop As Point = New Point(20, 50)
     Private mpntOutputBottom As Point = New Point(300, 300)
+
     ' Variables for the Animation
     Private mblnRedrawChangeHappened = False
     Private msngContainerHeight As Single
     Private msngHeightTimer As Single = 1
+    Private msngAnimationSpeed = 1.3
+
+    ' Variables for the Cornet
+    Private mintCupHorizontalRadius As Integer = 65
+    Private mintCupVerticalRadius As Integer = 20
+
+
+    ' Variables for the Cornet
+    Private mintCornetHorizontalRadius As Integer = 45
+    Private mintCornetVerticalRadius As Integer = 17
+    Private mintCornetHeight As Integer = 100
+
 
     ' Variables representing the selection
     Private mblnIsCupVisible As Boolean = False
     Private msngSizeSelection As Single = 1
-    Private mblnCup As Boolean = True
+    Private mblnCupSelected As Boolean = True
 
 
     ' Strings to represent the selection
@@ -25,73 +37,93 @@
     ' Variables to track how much it costs and how much ahs been paid
     Private msngPreis As Single
     Private msngBezahlt As Single = 0
+    Private Const intMaximumPrice = 10
 
     ' Variables for the coin values, images and signs
     Private msngCoinValues() As Single = {5, 2, 1, 0.5, 0.2, 0.1}
     Private mimgCoinImages() As Image
     Private msngCoinSizes() As Single = {1, 0.8, 0.65, 0.45, 0.54, 0.43}
 
-    'TODO: Rename Radiobuttons and Groupboxes!
-    Private Sub Form1_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        pnlSize.BorderStyle = BorderStyle.None
-        cmbType.SelectedIndex = 0
-        mblntext_visible = True
-        toggleLables()
-        rbtExtraGross.Select()
-        lstGeschmack.SelectedIndex = 0
-        cmbType.SelectedIndex = 1
-        pnlContainer.BringToFront()
-        mimgCoinImages = {pic5Fr.Image, pic2Fr.Image, pic1Fr.Image, pic50rp.Image, pic20rp.Image, pic10rp.Image}
-    End Sub
 
-    Private Sub lstGeschmack_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lstGeschmack.SelectedIndexChanged
-        mstrGeschmack = " mit " + lstGeschmack.SelectedItem.ToString + "eis."
-        If lstGeschmack.SelectedIndex = 2 Then
-            mstrGeschmack = " mit " + lstGeschmack.SelectedItem.ToString + "is." 'Erdbeereis
-        ElseIf lstGeschmack.SelectedIndex = 0 Then
-            mstrGeschmack = " mit " + lstGeschmack.SelectedItem.ToString + "neis." 'Schokoladeneis
+
+    Private Sub AnimateOutputContainer(ByRef pnl As Panel)
+        ' Draw Output area and the cup or cornet animation
+        If mblnRedrawChangeHappened Then
+            msngHeightTimer = 1 ' Start Animation anew
+            tmrContainerAnimation.Stop() ' Stop the Animation
+            mblnRedrawChangeHappened = False ' Change is done
         End If
-        AnimeOutputContainer(pnlOutputAll)
+
+        lblSelection.Text = mstrGroesse + mstrType + mstrGeschmack
+        updatePreis()
+
+        Dim gr As Graphics = getClearedGraphics(pnl)
+        DrawOutput(Color.Black, pnl) ' Draw Output first
+        tmrContainerAnimation.Start() ' Start Animation
+    End Sub
+    Private Sub tmrContainerAnimation_Tick(sender As Object, e As EventArgs) Handles tmrContainerAnimation.Tick
+        ' Slowly Move the Container upwards and make it get more visible with time
+        pnlContainer.Height = msngHeightTimer ' Height is timer variable
+        ' The new Location is dependant on the size of the output panel as well as the Location and the sizeMultiplier
+        pnlContainer.Location = New Point(pnlOutputAll.Width / 2 - 20 - 50 * msngSizeSelection + pnlOutputAll.Location.X, _
+                                          (pnlOutputAll.Height - 50 - 30 * (1 - msngSizeSelection)) - msngHeightTimer + pnlOutputAll.Location.Y)
+        ' The next time the container height will bi by AnimationSpeed bigger
+        msngHeightTimer += msngAnimationSpeed
+        If mblnCupSelected Then
+            DrawCup(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
+        Else
+            DrawCornet(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
+        End If
+        ' If the Container is fully visible, stop the timer
+        If msngHeightTimer >= msngContainerHeight Then
+            msngHeightTimer = 1
+            tmrContainerAnimation.Stop()
+        End If
+
     End Sub
 
 
-    Private Sub toggleLables()
-        mblntext_visible = Not mblntext_visible
-        'lbl_geschmack.Visible = text_visible
-        'lbl_size.Visible = text_visible
-        'lbl_spacer.Visible = text_visible
-        'lbl_type.Visible = text_visible
-    End Sub
-
-    Private Sub pnlOutputAll_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles pnlOutputAll.MouseClick
-        lblZuBezahlen.Text = "(" + CStr(e.Location.X) + ", " + CStr(e.Location.Y) + ")"
+    Private Sub pnlOutputAll_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlOutputAll.Paint
+        DrawOutput(Color.Black, pnlOutputAll) ' Draw Output Area when program starts
     End Sub
 
 
 
-    Private Sub DrawOutput(ByVal pntTopLeft As Point, ByVal pntBottomRight As Point, ByVal color As Color, ByRef pnl As Panel)
-        Dim intWidth As Integer = System.Math.Abs(pntBottomRight.X - pntTopLeft.X)
-        Dim intHeight As Integer = System.Math.Abs(pntBottomRight.X - pntTopLeft.X)
+
+
+
+    ' Visual Functions (Drawing Stuff)
+
+    Private Sub CreateSoftIce()
+        'Todo: Create Softice
+    End Sub
+
+    Private Sub DrawOutput(ByVal color As Color, ByRef pnl As Panel)
+        ' Compute Size
+        Dim intWidth As Integer = System.Math.Abs(mpntOutputBottom.X - mpntOutputTop.X)
+        Dim intHeight As Integer = System.Math.Abs(mpntOutputBottom.X - mpntOutputTop.X)
         Dim pen As Pen = New Pen(color)
-        Dim rect As Rectangle = New Rectangle(pntTopLeft.X, pntTopLeft.Y, intWidth, intHeight)
+        Dim rect As Rectangle = New Rectangle(mpntOutputTop.X, mpntOutputTop.Y, intWidth, intHeight)
         Dim gr As Graphics = pnl.CreateGraphics
-        gr.DrawRectangle(pen, rect)
-        gr.DrawLine(pen, New Point(pntTopLeft.X + 1 / 3 * intWidth, pntBottomRight.Y - 1 / 3 * intHeight), New Point(pntTopLeft.X + 1 / 3 * intWidth, pntTopLeft.Y))
-        gr.DrawLine(pen, New Point(pntTopLeft.X + 1 / 3 * intWidth, pntBottomRight.Y - 1 / 3 * intHeight), New Point(pntBottomRight.X, pntBottomRight.Y - 1 / 3 * intHeight))
+        gr.DrawRectangle(pen, rect) ' Draw Front Rectangle
+        gr.DrawLine(pen, New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputBottom.Y - 1 / 3 * intHeight), _
+                    New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputTop.Y)) ' Draw Right Line
+        gr.DrawLine(pen, New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputBottom.Y - 1 / 3 * intHeight), _
+                    New Point(mpntOutputBottom.X, mpntOutputBottom.Y - 1 / 3 * intHeight)) ' Draw Left line
     End Sub
 
     Private Sub DrawCup(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
-        Dim gr As Graphics = pnlOutput.CreateGraphics
-        gr.Clear(Drawing.Color.WhiteSmoke)
-
-        Dim sngHorizontalRadius As Single = 65 * sngSizeMultiplier
-        Dim sngVerticalRaidus As Single = 20 * sngSizeMultiplier
-        Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus)
-        pnlOutput.Dock = DockStyle.None
-
+        ' Draw the Cup
+        Dim gr As Graphics = getClearedGraphics(pnlOutput)
+        ' Multiply Radii with sizemultiplier
+        Dim sngHorizontalRadius As Single = mintCupHorizontalRadius * sngSizeMultiplier
+        Dim sngVerticalRaidus As Single = mintCupVerticalRadius * sngSizeMultiplier
+        Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus) ' Set top so that ellipse is completely visible
+        ' Set Height to the sum of all elements
         msngContainerHeight = 2 * sngVerticalRaidus + (pntCenterTop.Y + 50 * sngSizeMultiplier) - (pntCenterTop.Y + 5 * sngSizeMultiplier) + 30 * sngSizeMultiplier * 0.3
-        pnlOutput.Width = 2 * sngHorizontalRadius + 2
-        pnlOutput.Update()
+        pnlOutput.Width = 2 * sngHorizontalRadius + 2 ' Width is 2*Radius plus a bit
+        pnlOutput.Update() ' Update (Size)
+
         DrawEllipseInPanel(pntCenterTop, New Tuple(Of Integer, Integer)(sngHorizontalRadius, sngVerticalRaidus), pnlOutput, color, True) 'Draw Top Opening
 
         Dim rect As Rectangle = New Rectangle(pntCenterTop.X - 45 * sngSizeMultiplier, pntCenterTop.Y + 35 * sngSizeMultiplier, 90 * sngSizeMultiplier, 30 * sngSizeMultiplier)
@@ -103,30 +135,41 @@
 
     End Sub
 
-    Private Sub DrawCornet(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
-        Dim gr As Graphics = pnlOutput.CreateGraphics
+    Private Function getClearedGraphics(ByVal pnlPanel As Panel) As Graphics
+        Dim gr As Graphics = pnlPanel.CreateGraphics
         gr.Clear(Drawing.Color.WhiteSmoke)
-        Dim sngHorizontalRadius As Single = 45 * sngSizeMultiplier
-        Dim sngVerticalRaidus As Single = 17 * sngSizeMultiplier
-        Dim intHeight As Integer = 100
-        Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus)
-        If sngSizeMultiplier > 0.99 Then
-            sngHorizontalRadius = 45 * sngSizeMultiplier * 0.95
-            sngVerticalRaidus = 17 * sngSizeMultiplier * 0.9
-        End If
+        Return gr
+    End Function
 
-        msngContainerHeight = 2 * sngVerticalRaidus + Math.Abs(pntCenterTop.Y - (pntCenterTop.Y + intHeight * sngSizeMultiplier))
+    Private Sub DrawCornet(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
+        ' Draw the Cornet
+        Dim gr As Graphics = getClearedGraphics(pnlOutput)
+        ' Radii get multiplied by the sizeMultiplier
+        Dim sngHorizontalRadius As Single = mintCornetHorizontalRadius * sngSizeMultiplier
+        Dim sngVerticalRaidus As Single = mintCornetVerticalRadius * sngSizeMultiplier
+        If sngSizeMultiplier > 0.99 Then
+            sngHorizontalRadius *= 0.95
+            sngVerticalRaidus *= 0.9
+        End If
+        ' CenterTop point is at (X-Radius, Y-Radius) so that everything is visible
+        Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus)
+
+        ' Set the container size
+        msngContainerHeight = 2 * sngVerticalRaidus + Math.Abs(pntCenterTop.Y - (pntCenterTop.Y + mintCornetHeight * sngSizeMultiplier))
         pnlOutput.Width = 2 * sngHorizontalRadius + 8
-        pnlOutput.Update()
+        pnlOutput.Update() ' Update after changing the size to make everything appear correctly
+        ' Draw the Top Ellipse
         DrawEllipseInPanel(pntCenterTop, New Tuple(Of Integer, Integer)(sngHorizontalRadius, sngVerticalRaidus), pnlOutput, color, True) 'Draw Top Opening
+        ' Draw the 2 lines at the side
         gr.DrawLine(New Pen(color), New Point(pntCenterTop.X - sngHorizontalRadius, pntCenterTop.Y), _
-                    New Point(pntCenterTop.X, pntCenterTop.Y + intHeight * sngSizeMultiplier))
+                    New Point(pntCenterTop.X, pntCenterTop.Y + mintCornetHeight * sngSizeMultiplier))
         gr.DrawLine(New Pen(color), New Point(pntCenterTop.X + sngHorizontalRadius, pntCenterTop.Y), _
-                    New Point(pntCenterTop.X, pntCenterTop.Y + intHeight * sngSizeMultiplier))
+                    New Point(pntCenterTop.X, pntCenterTop.Y + mintCornetHeight * sngSizeMultiplier))
 
     End Sub
 
     Private Sub DrawEllipseInPanel(ByVal pntCenter As Point, ByVal tplRadii As Tuple(Of Integer, Integer), ByRef pnl As Panel, ByVal color As Color, ByVal blnFill As Boolean)
+        ' Draw an ellipse with the radii tplRadii and the center pntCenter in the panel pnl and the color color.
         Dim gr As Graphics = pnl.CreateGraphics
         Dim rect As Rectangle = New Rectangle(pntCenter.X - tplRadii.Item1, pntCenter.Y - tplRadii.Item2, 2 * tplRadii.Item1, 2 * tplRadii.Item2)
         If blnFill Then
@@ -136,88 +179,64 @@
         End If
     End Sub
 
+    ' Routines Concerning Selection
 
-    Private Sub tmrContainerAnimation_Tick(sender As Object, e As EventArgs) Handles tmrContainerAnimation.Tick
-        pnlContainer.Height = msngHeightTimer
-        pnlContainer.Location = New Point(pnlOutputAll.Width / 2 - 20 - 50 * msngSizeSelection + pnlOutputAll.Location.X, _
-                                          (pnlOutputAll.Height - 50 - 30 * (1 - msngSizeSelection)) - msngHeightTimer + pnlOutputAll.Location.Y)
-        msngHeightTimer += 0.8
-        If mblnCup Then
-            DrawCup(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
-
-        Else
-            DrawCornet(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
-        End If
-        If msngHeightTimer >= msngContainerHeight Then
-            msngHeightTimer = 1
-            tmrContainerAnimation.Stop()
-        End If
-
+    'TODO: Rename Radiobuttons and Groupboxes!
+    Private Sub frmMain_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        pnlSize.BorderStyle = BorderStyle.None
+        cmbType.SelectedIndex = 0
+        rbtExtraGross.Select() ' Set "Extra Gross" as default
+        lstGeschmack.SelectedIndex = 0 ' Set Schokolade
+        cmbType.SelectedIndex = 1 ' Set Becher as default 
+        pnlContainer.BringToFront() ' Container is frontmost
+        mimgCoinImages = {pic5Fr.Image, pic2Fr.Image, pic1Fr.Image, pic50rp.Image, pic20rp.Image, pic10rp.Image}
     End Sub
 
-    Private Function sngRealCost() As Single
-        Return msngPreis * If(mblnCup, 0.8, 1.0)
-    End Function
+    Private Sub lstGeschmack_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lstGeschmack.SelectedIndexChanged
+        mstrGeschmack = " mit " + lstGeschmack.SelectedItem.ToString + "eis."
+        If lstGeschmack.SelectedIndex = 2 Then
+            mstrGeschmack = " mit " + lstGeschmack.SelectedItem.ToString + "is." 'Erdbeereis
+        ElseIf lstGeschmack.SelectedIndex = 0 Then
+            mstrGeschmack = " mit " + lstGeschmack.SelectedItem.ToString + "neis." 'Schokoladeneis
+        End If
+        AnimateOutputContainer(pnlOutputAll)
+    End Sub
+
     Private Sub updatePreis()
-        lblPreisFr.Text = "CHF " + sngRealCost().ToString("F")
+        lblPreisFr.Text = "CHF " + sngRealCost(msngPreis).ToString("F")
         lblBezahltFr.Text = "CHF " + msngBezahlt.ToString("F")
-        lblZuBezahlenFr.Text = "CHF " + (sngRealCost() - msngBezahlt).ToString("F")
+        lblZuBezahlenFr.Text = "CHF " + (sngRealCost(msngPreis) - msngBezahlt).ToString("F")
         lblError.Text = ""
-
     End Sub
 
-
-
-
-    Private Sub AnimeOutputContainer(ByRef pnl As Panel)
-        If mblnRedrawChangeHappened Then
-            msngHeightTimer = 1
-            tmrContainerAnimation.Stop()
-            mblnRedrawChangeHappened = False
+    Private Sub cmbType_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbType.SelectedIndexChanged
+        mblnCupSelected = CBool(cmbType.SelectedIndex)
+        If mblnCupSelected Then
+            mstrType = "er " + cmbType.SelectedItem.ToString  ' gross[er Becher]
+        Else
+            mstrType = "es " + cmbType.SelectedItem.ToString  ' gross[es Cornet]
         End If
-
-        lblSelection.Text = mstrGroesse + mstrType + mstrGeschmack
-        updatePreis()
-
-        Dim gr As Graphics = pnl.CreateGraphics
-        gr.Clear(Color.WhiteSmoke)
-
-        DrawOutput(mpntOutputTop, mpntOutputBottom, Color.Black, pnl)
-        tmrContainerAnimation.Start()
-        'DrawCornet(Color.Black, pnlContainer, mblnWhatsChanged(0) Or mblnWhatsChanged(1), msngSizeSelection)
-        'If mblnCup Then
-        '    'DrawCup(Color.Black, pnlContainer, mblnWhatsChanged(0) Or mblnWhatsChanged(1), msngSizeSelection)
-        '    'DrawCup(Color.Black, pnlContainer, mblnWhatsChanged(0) Or mblnWhatsChanged(1), msngSizeSelection)
-        '    'pnlContainer.Height = 25
-        'Else
-        '    DrawCornet(mpntContainerCenter, Color.Black, pnl, mblnWhatsChanged(0) Or mblnWhatsChanged(1), msngSizeSelection)
-        'End If
-
+        mblnRedrawChangeHappened = True ' Redraw Container (Type Changed)
+        AnimateOutputContainer(pnlOutputAll)
     End Sub
 
-    Private Sub CreateSoftIce()
-        'Todo: Create Softice
-    End Sub
-
-    Private Function strToLower(ByVal str As String, ByVal intIndexOfCapital As Integer) As String
-        Dim chrarray = str.ToCharArray
-        For Int As Integer = 0 To chrarray.Length - 1
-            chrarray(Int) = Char.ToLower(chrarray(Int))
-        Next
-        chrarray(intIndexOfCapital) = Char.ToUpper(chrarray(intIndexOfCapital))
-        Return New String(chrarray)
-    End Function
-
-    Private Sub setButtonText(ByVal strText As String, ByVal sngNewSize As Single)
-        msngSizeSelection = sngNewSize
-        mstrGroesse = strToLower(strText, 0)
-        msngPreis = sngNewSize * 10
-        mblnRedrawChangeHappened = True
-        AnimeOutputContainer(pnlOutputAll)
+    Private Sub optSizeSelection_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtExtraGross.CheckedChanged, rbtGross.CheckedChanged, rbtKlein.CheckedChanged, rbtMittel.CheckedChanged, rbtSehrKlein.CheckedChanged
+        Dim rbtButton = CType(sender, RadioButton)
+        If rbtButton.Checked Then
+            msngSizeSelection = CSng(rbtButton.Tag)
+            mstrGroesse = strToLowerWithUpperLetter(rbtButton.Text, 0)
+            msngPreis = msngSizeSelection * intMaximumPrice
+            mblnRedrawChangeHappened = True ' Redraw Container (Size Changed)
+            AnimateOutputContainer(pnlOutputAll)
+        End If
     End Sub
 
 
+
+
+    ' Routines for Money and Rückgeld
     Private Sub geldAusgabe(ByVal sngAmount As Single)
+        ' Computes a distribution of coin which make up sngAmount and puts the needed coins in the coinoutput area
         Dim gr As Graphics = pnlGeldAusgabe.CreateGraphics
         gr.Clear(Color.WhiteSmoke)
         Dim intaMoneyBack() As Integer = splitmoney(msngBezahlt)
@@ -231,15 +250,54 @@
             Next
 
         Next
-        'lblSelection.Text = "Geld zurück: " + msngBezahlt.ToString + ": "
-        'Dim intSum As Single = 0
-        'For i = 0 To 5
-        '    lblSelection.Text += ", " + intaMoneyBack(i).ToString + "*" + msngCoinValues(i).ToString
-        '    intSum += intaMoneyBack(i) * msngCoinValues(i)
-        'Next
-        'lblSelection.Text += " = " + intSum.ToString
     End Sub
 
+    Private Sub picCoins_Click(sender As Object, e As EventArgs) Handles pic5Fr.Click, pic2Fr.Click, pic1Fr.Click, pic50rp.Click, pic20rp.Click, pic10rp.Click
+        msngBezahlt += CSng(sender.Tag)
+        updatePreis()
+    End Sub
+
+    Private Sub btnGeldZuerueck_Click(sender As Object, e As EventArgs) Handles btnGeldZuerueck.Click
+        updatePreis()
+        geldAusgabe(msngBezahlt)
+        msngBezahlt = 0
+        updatePreis()
+    End Sub
+
+    Private Sub btnBestaetigen_Click(sender As Object, e As EventArgs) Handles btnBestaetigen.Click
+        updatePreis()
+        If sngRealCost(msngPreis) > msngBezahlt Then
+            lblError.Text = "Noch nicht genug Geld. Es fehlen: " + lblZuBezahlenFr.Text
+        Else
+            lblError.Text = ""
+            geldAusgabe(sngRealCost(msngPreis) - msngBezahlt)
+            msngBezahlt = 0
+            CreateSoftIce()
+        End If
+
+    End Sub
+
+
+
+
+
+
+
+
+
+    ' Functions
+
+    Private Function strToLowerWithUpperLetter(ByVal str As String, Optional ByVal intIndexOfCapital As Integer = 0) As String
+        ' Transforms a string to lowercase with one optional letter as capital
+        Dim chrarray = str.ToCharArray
+        For Int As Integer = 0 To chrarray.Length - 1
+            chrarray(Int) = Char.ToLower(chrarray(Int))
+        Next
+        If intIndexOfCapital >= 0 Then
+            chrarray(intIndexOfCapital) = Char.ToUpper(chrarray(intIndexOfCapital))
+        End If
+        Return New String(chrarray)
+    End Function
 
     Private Function splitmoney(ByVal sngMoney As Double) As Integer()
         'Returns an array containing an amount for the different coins which make up sngMoney. 
@@ -264,102 +322,7 @@
 
     End Function
 
-
-    Private Sub pnlOutputAll_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlOutputAll.Paint
-        DrawOutput(mpntOutputTop, mpntOutputBottom, Color.Black, pnlOutputAll)
-    End Sub
-
-    Private Sub cmbType_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbType.SelectedIndexChanged
-        mblnCup = CBool(cmbType.SelectedIndex)
-        If mblnCup Then
-            mstrType = "er " + cmbType.SelectedItem.ToString
-        Else
-            mstrType = "es " + cmbType.SelectedItem.ToString
-        End If
-        mblnRedrawChangeHappened = True
-        AnimeOutputContainer(pnlOutputAll)
-    End Sub
-
-    Private Sub rbtExtraGross_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtExtraGross.CheckedChanged
-        If rbtExtraGross.Checked Then
-            setButtonText(rbtExtraGross.Text, 1)
-        End If
-
-    End Sub
-
-    Private Sub rbtGross_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtGross.CheckedChanged
-        If rbtGross.Checked Then
-            setButtonText(rbtGross.Text, 0.8)
-        End If
-    End Sub
-
-    Private Sub rbtMittel_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtMittel.CheckedChanged
-        If rbtMittel.Checked Then
-            setButtonText(rbtMittel.Text, 0.6)
-        End If
-    End Sub
-
-    Private Sub rbtKlein_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtKlein.CheckedChanged
-        If rbtKlein.Checked Then
-            setButtonText(rbtKlein.Text, 0.4)
-        End If
-    End Sub
-
-    Private Sub rbtSehrKlein_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtSehrKlein.CheckedChanged
-        If rbtSehrKlein.Checked Then
-            setButtonText(rbtSehrKlein.Text, 0.3)
-        End If
-    End Sub
-
-
-    Private Sub pic5Fr_Click(sender As Object, e As EventArgs) Handles pic5Fr.Click
-        msngBezahlt += 5
-        updatePreis()
-    End Sub
-
-    Private Sub pic2Fr_Click(sender As Object, e As EventArgs) Handles pic2Fr.Click
-        msngBezahlt += 2
-        updatePreis()
-    End Sub
-
-    Private Sub pi1Fr_Click(sender As Object, e As EventArgs) Handles pic1Fr.Click
-        msngBezahlt += 1
-        updatePreis()
-    End Sub
-
-    Private Sub pic50rp_Click(sender As Object, e As EventArgs) Handles pic50rp.Click
-        msngBezahlt += 0.5
-        updatePreis()
-    End Sub
-
-    Private Sub pic20rp_Click(sender As Object, e As EventArgs) Handles pic20rp.Click
-        msngBezahlt += 0.2
-        updatePreis()
-    End Sub
-
-    Private Sub pic10rp_Click(sender As Object, e As EventArgs) Handles pic10rp.Click
-        msngBezahlt += 0.1
-        updatePreis()
-    End Sub
-
-
-    Private Sub btnGeldZuerueck_Click(sender As Object, e As EventArgs) Handles btnGeldZuerueck.Click
-        updatePreis()
-        geldAusgabe(msngBezahlt)
-        msngBezahlt = 0
-        updatePreis()
-    End Sub
-
-    Private Sub btnBestaetigen_Click(sender As Object, e As EventArgs) Handles btnBestaetigen.Click
-        updatePreis()
-        If sngRealCost() > msngBezahlt Then
-            lblError.Text = "Noch nicht genug Geld. Es fehlen: " + lblZuBezahlenFr.Text
-        Else
-            lblError.Text = ""
-            geldAusgabe(sngRealCost() - msngBezahlt)
-            msngBezahlt = 0
-            CreateSoftIce()
-        End If
-
-    End Sub
+    Private Function sngRealCost(ByRef sngValue As Single) As Single
+        Return sngValue * If(mblnCupSelected, 0.8, 1.0)
+    End Function
 End Class

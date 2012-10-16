@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form1
+Partial Class frmMain
     Inherits System.Windows.Forms.Form
 
     'Das Formular überschreibt den Löschvorgang, um die Komponentenliste zu bereinigen.
@@ -98,6 +98,7 @@ Partial Class Form1
         Me.rbtSehrKlein.Size = New System.Drawing.Size(73, 17)
         Me.rbtSehrKlein.TabIndex = 4
         Me.rbtSehrKlein.TabStop = True
+        Me.rbtSehrKlein.Tag = ".3"
         Me.rbtSehrKlein.Text = "Sehr Klein"
         Me.rbtSehrKlein.UseVisualStyleBackColor = True
         '
@@ -109,6 +110,7 @@ Partial Class Form1
         Me.rbtKlein.Size = New System.Drawing.Size(48, 17)
         Me.rbtKlein.TabIndex = 3
         Me.rbtKlein.TabStop = True
+        Me.rbtKlein.Tag = ".4"
         Me.rbtKlein.Text = "Klein"
         Me.rbtKlein.UseVisualStyleBackColor = True
         '
@@ -120,6 +122,7 @@ Partial Class Form1
         Me.rbtMittel.Size = New System.Drawing.Size(80, 17)
         Me.rbtMittel.TabIndex = 2
         Me.rbtMittel.TabStop = True
+        Me.rbtMittel.Tag = ".6"
         Me.rbtMittel.Text = "Mittel Gross"
         Me.rbtMittel.UseVisualStyleBackColor = True
         '
@@ -131,6 +134,7 @@ Partial Class Form1
         Me.rbtGross.Size = New System.Drawing.Size(52, 17)
         Me.rbtGross.TabIndex = 1
         Me.rbtGross.TabStop = True
+        Me.rbtGross.Tag = ".8"
         Me.rbtGross.Text = "Gross"
         Me.rbtGross.UseVisualStyleBackColor = True
         '
@@ -142,6 +146,7 @@ Partial Class Form1
         Me.rbtExtraGross.Size = New System.Drawing.Size(79, 17)
         Me.rbtExtraGross.TabIndex = 0
         Me.rbtExtraGross.TabStop = True
+        Me.rbtExtraGross.Tag = "1"
         Me.rbtExtraGross.Text = "Extra Gross"
         Me.rbtExtraGross.UseVisualStyleBackColor = True
         '
@@ -274,6 +279,7 @@ Partial Class Form1
         Me.pic10rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pic10rp.TabIndex = 14
         Me.pic10rp.TabStop = False
+        Me.pic10rp.Tag = ".1"
         '
         'pic20rp
         '
@@ -284,6 +290,7 @@ Partial Class Form1
         Me.pic20rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pic20rp.TabIndex = 13
         Me.pic20rp.TabStop = False
+        Me.pic20rp.Tag = ".2"
         '
         'pic1Fr
         '
@@ -294,6 +301,7 @@ Partial Class Form1
         Me.pic1Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pic1Fr.TabIndex = 12
         Me.pic1Fr.TabStop = False
+        Me.pic1Fr.Tag = "1"
         '
         'pic50rp
         '
@@ -304,6 +312,7 @@ Partial Class Form1
         Me.pic50rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pic50rp.TabIndex = 11
         Me.pic50rp.TabStop = False
+        Me.pic50rp.Tag = ".5"
         '
         'pic2Fr
         '
@@ -314,6 +323,7 @@ Partial Class Form1
         Me.pic2Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pic2Fr.TabIndex = 10
         Me.pic2Fr.TabStop = False
+        Me.pic2Fr.Tag = "2"
         '
         'pic5Fr
         '
@@ -324,6 +334,7 @@ Partial Class Form1
         Me.pic5Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pic5Fr.TabIndex = 9
         Me.pic5Fr.TabStop = False
+        Me.pic5Fr.Tag = "5"
         '
         'lblGeldschlitz
         '
@@ -402,7 +413,7 @@ Partial Class Form1
         Me.lblError.Size = New System.Drawing.Size(0, 13)
         Me.lblError.TabIndex = 34
         '
-        'Form1
+        'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -420,7 +431,8 @@ Partial Class Form1
         Me.Controls.Add(Me.btnBestaetigen)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Name = "Form1"
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Name = "frmMain"
         Me.Text = "Ice-O-Matic"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
