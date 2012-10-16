@@ -378,6 +378,7 @@ Partial Class frmMain
         'pnlContainer
         '
         Me.pnlContainer.BackColor = System.Drawing.Color.Transparent
+        Me.pnlContainer.ForeColor = System.Drawing.Color.Transparent
         Me.pnlContainer.Location = New System.Drawing.Point(12, 384)
         Me.pnlContainer.Name = "pnlContainer"
         Me.pnlContainer.Size = New System.Drawing.Size(196, 171)

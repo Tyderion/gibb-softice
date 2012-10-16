@@ -26,6 +26,7 @@
     Private mblnIsCupVisible As Boolean = False
     Private msngSizeSelection As Single = 1
     Private mblnCupSelected As Boolean = True
+    Private mintIceHeight As Integer = 100
 
 
     ' Strings to represent the selection
@@ -53,7 +54,7 @@
     Private Sub AnimateOutputContainer(ByRef pnl As Panel)
         ' Draw Output area and the cup or cornet animation
         If mblnRedrawChangeHappened Then
-            msngHeightTimer = 1 ' Start Animation anew
+            msngHeightTimer = mintIceHeight ' Start Animation anew
             tmrContainerAnimation.Stop() ' Stop the Animation
             mblnRedrawChangeHappened = False ' Change is done
         End If
@@ -73,6 +74,7 @@
                                           (pnlOutputAll.Height - 50 - 30 * (1 - msngSizeSelection)) - msngHeightTimer + pnlOutputAll.Location.Y)
         ' The next time the container height will bi by AnimationSpeed bigger
         msngHeightTimer += msngAnimationSpeed
+
         If mblnCupSelected Then
             mpntRealTopCenter = DrawCup(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
         Else
@@ -80,21 +82,16 @@
         End If
         ' If the Container is fully visible, stop the timer
         If msngHeightTimer >= msngContainerHeight Then
-            msngHeightTimer = 1
+            msngHeightTimer = mintIceHeight
             tmrContainerAnimation.Stop()
         End If
-
+        DrawOutput(Color.Black, pnlOutputAll)
     End Sub
 
 
     Private Sub pnlOutputAll_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlOutputAll.Paint
         DrawOutput(Color.Black, pnlOutputAll) ' Draw Output Area when program starts
     End Sub
-
-
-
-
-
 
     ' Visual Functions (Drawing Stuff)
 
@@ -122,13 +119,14 @@
     Private Function DrawCup(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
         ' Draw the Cup
         Dim gr As Graphics = getClearedGraphics(pnlOutput)
+        pnlOutput.BackColor = Drawing.Color.Transparent
         ' Multiply Radii with sizemultiplier
         Dim sngHorizontalRadius As Single = mintCupHorizontalRadius * sngSizeMultiplier
         Dim sngVerticalRaidus As Single = mintCupVerticalRadius * sngSizeMultiplier
         msngRealRadii = {sngHorizontalRadius, sngVerticalRaidus}
-        Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus) ' Set top so that ellipse is completely visible
+        Dim pntCenterTop As Point = New Point(sngHorizontalRadius, sngVerticalRaidus + mintIceHeight) ' Set top so that ellipse is completely visible
         ' Set Height to the sum of all elements
-        msngContainerHeight = 2 * sngVerticalRaidus + (pntCenterTop.Y + 50 * sngSizeMultiplier) - (pntCenterTop.Y + 5 * sngSizeMultiplier) + 30 * sngSizeMultiplier * 0.3
+        msngContainerHeight = 2 * sngVerticalRaidus + (pntCenterTop.Y + 50 * sngSizeMultiplier) - (pntCenterTop.Y + 5 * sngSizeMultiplier) + 30 * sngSizeMultiplier * 0.3 + mintIceHeight
         pnlOutput.Width = 2 * sngHorizontalRadius + 2 ' Width is 2*Radius plus a bit
         pnlOutput.Update() ' Update (Size)
 
