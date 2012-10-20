@@ -93,11 +93,12 @@ Partial Class frmMain
         'lstGeschmack
         '
         Me.lstGeschmack.BackColor = System.Drawing.Color.Silver
+        Me.lstGeschmack.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lstGeschmack.FormattingEnabled = True
         Me.lstGeschmack.Items.AddRange(New Object() {"Schokolade", "Erdbeere", "Vanille"})
         Me.lstGeschmack.Location = New System.Drawing.Point(6, 19)
         Me.lstGeschmack.Name = "lstGeschmack"
-        Me.lstGeschmack.Size = New System.Drawing.Size(120, 147)
+        Me.lstGeschmack.Size = New System.Drawing.Size(120, 143)
         Me.lstGeschmack.TabIndex = 0
         '
         'rbtSehrKlein
@@ -386,7 +387,6 @@ Partial Class frmMain
         '
         Me.mpicSchoko.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mpicSchoko.BackColor = System.Drawing.Color.Transparent
-        Me.mpicSchoko.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.mpicSchoko.Image = Global.Softice_Automat.My.Resources.Resources.schoko
         Me.mpicSchoko.Location = New System.Drawing.Point(611, 298)
         Me.mpicSchoko.Name = "mpicSchoko"
