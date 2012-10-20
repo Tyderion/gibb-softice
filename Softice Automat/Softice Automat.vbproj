@@ -135,6 +135,24 @@
   <ItemGroup>
     <None Include="Resources\10Rp_front.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resErdbeere.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\schoko.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vanille.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\schoko_round.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\erdbeere.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vanille.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

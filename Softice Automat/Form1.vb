@@ -1,5 +1,6 @@
 ﻿Public Class frmMain
-
+    ' Global Settings
+    Private mcolBackgroundColor As Color = Color.Silver
 
     ' Variables defining the output section
     Private mpntOutputTop As Point = New Point(20, 50)
@@ -8,12 +9,12 @@
     ' Variables for the Animation
     Private mblnRedrawChangeHappened = False
     Private msngContainerHeight As Single
-    Private msngHeightTimer As Single = 1
-    Private msngAnimationSpeed = 1.3
+    Private msngTimerConainerHeight As Single = 1
+    Private msngAnimationSpeed = 5 '1.3
 
-    ' Variables for the Cornet
+    ' Variables for the Cup
     Private mintCupHorizontalRadius As Integer = 65
-    Private mintCupVerticalRadius As Integer = 20
+    Private mintCupVerticalRadius As Integer = 18
 
 
     ' Variables for the Cornet
@@ -26,7 +27,7 @@
     Private mblnIsCupVisible As Boolean = False
     Private msngSizeSelection As Single = 1
     Private mblnCupSelected As Boolean = True
-    Private mintIceHeight As Integer = 100
+    Private mintIceHeight As Integer = 2
 
 
     ' Strings to represent the selection
@@ -48,41 +49,52 @@
     ' Variables for the Animation of the ice itself
     Private mpntRealTopCenter As Point
     Private msngRealRadii As Integer()
-
+    Private msngHeight As Single = 120
+    Private mclrSchoko As Color = Color.FromArgb(255, 100, 39, 11)
+    Private mclrVanille As Color = Color.FromArgb(255, 244, 245, 249)
+    Private mclrErdbeere As Color = Color.FromArgb(255, 251, 221, 229)
+    Private mpicChosenGeschmack As PictureBox
+    Private mclrChosenColor As Color
+    Private mblnFirst As Boolean = True
 
 
     Private Sub AnimateOutputContainer(ByRef pnl As Panel)
         ' Draw Output area and the cup or cornet animation
+
+        updateText()
         If mblnRedrawChangeHappened Then
-            msngHeightTimer = mintIceHeight ' Start Animation anew
-            tmrContainerAnimation.Stop() ' Stop the Animation
+            msngTimerConainerHeight = mintIceHeight ' Start Animation anew
+            'tmrContainerAnimation.Stop() ' Stop the Animation
             mblnRedrawChangeHappened = False ' Change is done
+            tmrContainerAnimation.Start() ' Start the Animation
         End If
 
-        lblSelection.Text = mstrGroesse + mstrType + mstrGeschmack
-        updatePreis()
-
-        Dim gr As Graphics = getClearedGraphics(pnl)
         DrawOutput(Color.Black, pnl) ' Draw Output first
-        tmrContainerAnimation.Start() ' Start Animation
+
     End Sub
+
+    Private Sub DrawOutputContainer(ByVal clrFillColor As Color, Optional ByVal blnForceRedraw As Boolean = False)
+        If mblnCupSelected Then
+            mpntRealTopCenter = DrawCup(Color.Black, pnlContainer, blnForceRedraw Or mblnRedrawChangeHappened, clrFillColor, msngSizeSelection)
+        Else
+            mpntRealTopCenter = DrawCornet(Color.Black, pnlContainer, blnForceRedraw Or mblnRedrawChangeHappened, msngSizeSelection)
+        End If
+    End Sub
+
     Private Sub tmrContainerAnimation_Tick(sender As Object, e As EventArgs) Handles tmrContainerAnimation.Tick
         ' Slowly Move the Container upwards and make it get more visible with time
-        pnlContainer.Height = msngHeightTimer ' Height is timer variable
+        pnlContainer.Height = msngTimerConainerHeight ' Height is timer variable
         ' The new Location is dependant on the size of the output panel as well as the Location and the sizeMultiplier
-        pnlContainer.Location = New Point(pnlOutputAll.Width / 2 - 20 + 20 - 50 * msngSizeSelection + pnlOutputAll.Location.X, _
-                                          (pnlOutputAll.Height - 50 - 30 * (1 - msngSizeSelection)) - msngHeightTimer + pnlOutputAll.Location.Y)
+        Dim intOffset As Integer = If(mblnCupSelected, 80, 10)
+        pnlContainer.Location = New Point(pnlOutputAll.Width / 2 - 50 * msngSizeSelection + pnlOutputAll.Location.X, _
+                                          (pnlOutputAll.Height - 50 - intOffset * (1 - msngSizeSelection)) - msngTimerConainerHeight + pnlOutputAll.Location.Y)
         ' The next time the container height will bi by AnimationSpeed bigger
-        msngHeightTimer += msngAnimationSpeed
+        msngTimerConainerHeight += msngAnimationSpeed
+        DrawOutputContainer(Color.Black)
 
-        If mblnCupSelected Then
-            mpntRealTopCenter = DrawCup(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
-        Else
-            mpntRealTopCenter = DrawCornet(Color.Black, pnlContainer, mblnRedrawChangeHappened, msngSizeSelection)
-        End If
         ' If the Container is fully visible, stop the timer
-        If msngHeightTimer >= msngContainerHeight Then
-            msngHeightTimer = mintIceHeight
+        If msngTimerConainerHeight >= msngContainerHeight Then
+            msngTimerConainerHeight = mintIceHeight
             tmrContainerAnimation.Stop()
         End If
         DrawOutput(Color.Black, pnlOutputAll)
@@ -95,11 +107,77 @@
 
     ' Visual Functions (Drawing Stuff)
 
+    Private Sub tmrSoftice_Tick(sender As Object, e As EventArgs) Handles tmrSoftice.Tick
+        ' Slowly Move the Container upwards and make it get more visible with time
+
+        If mblnFirst Then
+            tmrSoftice.Stop()
+            DrawOutputContainer(mclrChosenColor, True)
+            mblnFirst = False
+            tmrSoftice.Start()
+        End If
+
+        If mblnCupSelected Then
+            pnlIceAnimation.BringToFront()
+            mpicChosenGeschmack.Visible = True
+            pnlIceAnimation.Height = (mpicChosenGeschmack.Location.Y - (mpntOutputTop.Y + pnlOutputAll.Location.Y + 2)) + msngTimerIceHeight ' Height is timer variable
+            pnlIceAnimation.Width = mpicChosenGeschmack.Width
+            pnlIceAnimation.Location = New Point(mpicChosenGeschmack.Location.X, _
+                                              mpntOutputTop.Y + pnlOutputAll.Location.Y + 2) '(pnlOutputAll.Height - 350 - 30 * (1 - msngSizeSelection)) - msngTimerConainerHeight + pnlOutputAll.Location.Y)
+            msngTimerIceHeight -= msngAnimationSpeed
+
+        Else
+        End If
+
+        pnlIceAnimation.BringToFront()
+        If pnlIceAnimation.Height <= 0 Then
+            msngTimerIceHeight = 0
+            tmrSoftice.Stop()
+            mblnFirst = True
+        End If
+
+        DrawOutput(Color.Black, pnlOutputAll)
+
+    End Sub
+
+
+
     Private Sub CreateSoftIce()
         ' Todo: Create Softice
-        DrawEllipseInPanel(mpntRealTopCenter, New Tuple(Of Integer, Integer)(5, 5), pnlContainer, Color.Red, True)
-        DrawEllipseInPanel(New Point(mpntRealTopCenter.X - msngRealRadii(0), mpntRealTopCenter.Y), New Tuple(Of Integer, Integer)(5, 5), pnlContainer, Color.Red, True)
-        DrawEllipseInPanel(New Point(mpntRealTopCenter.X, mpntRealTopCenter.Y - msngRealRadii(1)), New Tuple(Of Integer, Integer)(5, 5), pnlContainer, Color.Red, True)
+        ' Select pic depending on Geschmack
+        If lstGeschmack.SelectedIndex = 0 Then
+            mpicChosenGeschmack = mpicSchoko
+            mclrChosenColor = mclrSchoko
+        ElseIf lstGeschmack.SelectedIndex = 1 Then
+            mpicChosenGeschmack = picErdbeere
+            mclrChosenColor = mclrErdbeere
+        ElseIf lstGeschmack.SelectedIndex = 2 Then
+            mpicChosenGeschmack = picVanile
+            mclrChosenColor = mclrVanille
+        End If
+
+
+        If mblnCupSelected Then
+            mpicChosenGeschmack.Height = msngHeight * msngSizeSelection
+            mpicChosenGeschmack.Width = pnlContainer.Width
+
+            mpicChosenGeschmack.Location = New Point(pnlOutputAll.Location.X + pnlOutputAll.Width / 2 - pnlContainer.Width / 2 + 18 * msngSizeSelection, _
+                                           pnlContainer.Location.Y + mpntRealTopCenter.Y - mpicSchoko.Height)
+
+            DrawOutput(Color.Black, pnlOutputAll)
+            msngTimerIceHeight = mpicSchoko.Height - msngRealRadii(1)
+
+            pnlIceAnimation.Height = mpicSchoko.Height
+            pnlIceAnimation.Width = mpicSchoko.Width
+        End If
+
+        mpicChosenGeschmack.BringToFront()
+        'pnlIceAnimation.BringToFront()
+
+        pnlOutputAll.Update()
+        tmrSoftice.Start()
+        mblnRedrawChangeHappened = True
+        'picSchoko.Visible = True
     End Sub
 
     Private Sub DrawOutput(ByVal color As Color, ByRef pnl As Panel)
@@ -111,12 +189,12 @@
         Dim gr As Graphics = pnl.CreateGraphics
         gr.DrawRectangle(pen, rect) ' Draw Front Rectangle
         gr.DrawLine(pen, New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputBottom.Y - 1 / 3 * intHeight), _
-                    New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputTop.Y)) ' Draw Right Line
+                   New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputTop.Y)) ' Draw Vertical Line
         gr.DrawLine(pen, New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputBottom.Y - 1 / 3 * intHeight), _
-                    New Point(mpntOutputBottom.X, mpntOutputBottom.Y - 1 / 3 * intHeight)) ' Draw Left line
+                    New Point(mpntOutputBottom.X, mpntOutputBottom.Y - 1 / 3 * intHeight)) ' Draw Horizontal line
     End Sub
 
-    Private Function DrawCup(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, Optional ByVal sngSizeMultiplier As Single = 1)
+    Private Function DrawCup(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean, ByVal clrFill As Color, Optional ByVal sngSizeMultiplier As Single = 1)
         ' Draw the Cup
         Dim gr As Graphics = getClearedGraphics(pnlOutput)
         pnlOutput.BackColor = Drawing.Color.Transparent
@@ -130,7 +208,7 @@
         pnlOutput.Width = 2 * sngHorizontalRadius + 2 ' Width is 2*Radius plus a bit
         pnlOutput.Update() ' Update (Size)
 
-        DrawEllipseInPanel(pntCenterTop, New Tuple(Of Integer, Integer)(sngHorizontalRadius, sngVerticalRaidus), pnlOutput, color, True) 'Draw Top Opening
+        DrawEllipseInPanel(pntCenterTop, New Tuple(Of Integer, Integer)(sngHorizontalRadius, sngVerticalRaidus), pnlOutput, clrFill, True) 'Draw Top Opening
 
         Dim rect As Rectangle = New Rectangle(pntCenterTop.X - 45 * sngSizeMultiplier, pntCenterTop.Y + 35 * sngSizeMultiplier, 90 * sngSizeMultiplier, 30 * sngSizeMultiplier)
         gr.DrawArc(New Pen(color), rect, 0, 179) ' Draw Bottom Arc
@@ -143,7 +221,7 @@
 
     Private Function getClearedGraphics(ByVal pnlPanel As Panel) As Graphics
         Dim gr As Graphics = pnlPanel.CreateGraphics
-        gr.Clear(Drawing.Color.WhiteSmoke)
+        gr.Clear(mcolBackgroundColor)
         Return gr
     End Function
 
@@ -208,11 +286,19 @@
         AnimateOutputContainer(pnlOutputAll)
     End Sub
 
-    Private Sub updatePreis()
+    Private Sub updateText()
         lblPreisFr.Text = "CHF " + sngRealCost(msngPreis).ToString("F")
         lblBezahltFr.Text = "CHF " + msngBezahlt.ToString("F")
         lblZuBezahlenFr.Text = "CHF " + (sngRealCost(msngPreis) - msngBezahlt).ToString("F")
         lblError.Text = ""
+        lblSelection.Text = mstrGroesse + mstrType + mstrGeschmack
+        geldAusgabe(0)
+        If mpicChosenGeschmack IsNot Nothing Then
+            mpicChosenGeschmack.Visible = False
+        End If
+        mblnFirst = True
+
+        tmrSoftice.Stop()
     End Sub
 
     Private Sub cmbType_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbType.SelectedIndexChanged
@@ -259,20 +345,20 @@
 
     Private Sub picCoins_Click(sender As Object, e As EventArgs) Handles pic5Fr.Click, pic2Fr.Click, pic1Fr.Click, pic50rp.Click, pic20rp.Click, pic10rp.Click
         msngBezahlt += CSng(sender.Tag)
-        updatePreis()
+        updateText()
     End Sub
 
     Private Sub btnGeldZuerueck_Click(sender As Object, e As EventArgs) Handles btnGeldZuerueck.Click
-        updatePreis()
+        updateText()
         geldAusgabe(msngBezahlt)
         msngBezahlt = 0
-        updatePreis()
+        updateText()
     End Sub
 
     Private Sub btnBestaetigen_Click(sender As Object, e As EventArgs) Handles btnBestaetigen.Click
-        updatePreis()
+        updateText()
         If sngRealCost(msngPreis) > msngBezahlt Then
-                lblError.Text = "Noch nicht genug Geld. Es fehlen: " + lblZuBezahlenFr.Text
+            lblError.Text = "Noch nicht genug Geld. Es fehlen: " + lblZuBezahlenFr.Text
         Else
             If tmrContainerAnimation.Enabled Then
                 lblError.Text = "Bitte warten bis der Behälter ganz da ist"
@@ -327,4 +413,8 @@
     Private Function sngRealCost(ByRef sngValue As Single) As Single
         Return sngValue * If(mblnCupSelected, 0.8, 1.0)
     End Function
+
+    Private msngTimerIceHeight As Single = 1
+
+
 End Class

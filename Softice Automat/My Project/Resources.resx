@@ -136,4 +136,13 @@
   <data name="10Rp_front" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\10Rp_front.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="erdbeere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\erdbeere.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="schoko" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\schoko.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vanille" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vanille.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
