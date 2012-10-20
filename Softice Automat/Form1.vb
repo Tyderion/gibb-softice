@@ -127,6 +127,7 @@
             msngTimerIceHeight -= msngAnimationSpeed
 
         Else
+            ' TODO Implement Cornet
         End If
 
         pnlIceAnimation.BringToFront()
@@ -156,19 +157,18 @@
             mclrChosenColor = mclrVanille
         End If
 
-
+        'MessageBox.Show("Schoko Dims: " + mpicSchoko.Location.ToString + " and selection: " + mpicChosenGeschmack.Location.ToString)
         If mblnCupSelected Then
             mpicChosenGeschmack.Height = msngHeight * msngSizeSelection
             mpicChosenGeschmack.Width = pnlContainer.Width
 
             mpicChosenGeschmack.Location = New Point(pnlOutputAll.Location.X + pnlOutputAll.Width / 2 - pnlContainer.Width / 2 + 18 * msngSizeSelection, _
-                                           pnlContainer.Location.Y + mpntRealTopCenter.Y - mpicSchoko.Height)
-
+                                           pnlContainer.Location.Y + mpntRealTopCenter.Y - mpicChosenGeschmack.Height)
             DrawOutput(Color.Black, pnlOutputAll)
-            msngTimerIceHeight = mpicSchoko.Height - msngRealRadii(1)
+            msngTimerIceHeight = mpicChosenGeschmack.Height - msngRealRadii(1)
 
-            pnlIceAnimation.Height = mpicSchoko.Height
-            pnlIceAnimation.Width = mpicSchoko.Width
+            pnlIceAnimation.Height = mpicChosenGeschmack.Height
+            pnlIceAnimation.Width = mpicChosenGeschmack.Width
         End If
 
         mpicChosenGeschmack.BringToFront()
@@ -299,6 +299,7 @@
         mblnFirst = True
 
         tmrSoftice.Stop()
+
     End Sub
 
     Private Sub cmbType_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbType.SelectedIndexChanged
@@ -346,6 +347,7 @@
     Private Sub picCoins_Click(sender As Object, e As EventArgs) Handles pic5Fr.Click, pic2Fr.Click, pic1Fr.Click, pic50rp.Click, pic20rp.Click, pic10rp.Click
         msngBezahlt += CSng(sender.Tag)
         updateText()
+        AnimateOutputContainer(pnlOutputAll)
     End Sub
 
     Private Sub btnGeldZuerueck_Click(sender As Object, e As EventArgs) Handles btnGeldZuerueck.Click
@@ -417,4 +419,7 @@
     Private msngTimerIceHeight As Single = 1
 
 
+    Private Sub mpicSchoko_Click(sender As Object, e As EventArgs) Handles mpicSchoko.Click
+
+    End Sub
 End Class

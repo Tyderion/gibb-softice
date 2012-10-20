@@ -23,6 +23,7 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lstGeschmack = New System.Windows.Forms.ListBox()
         Me.rbtSehrKlein = New System.Windows.Forms.RadioButton()
@@ -46,37 +47,37 @@ Partial Class frmMain
         Me.pnlOutputAll = New System.Windows.Forms.Panel()
         Me.pnlGeldschlitz = New System.Windows.Forms.Panel()
         Me.pnlGeld = New System.Windows.Forms.Panel()
-        Me.pic10rp = New System.Windows.Forms.PictureBox()
-        Me.pic5Fr = New System.Windows.Forms.PictureBox()
-        Me.pic2Fr = New System.Windows.Forms.PictureBox()
-        Me.pic50rp = New System.Windows.Forms.PictureBox()
-        Me.pic1Fr = New System.Windows.Forms.PictureBox()
-        Me.pic20rp = New System.Windows.Forms.PictureBox()
         Me.pnlContainer = New System.Windows.Forms.Panel()
         Me.tmrContainerAnimation = New System.Windows.Forms.Timer(Me.components)
         Me.btnGeldZuerueck = New System.Windows.Forms.Button()
         Me.pnlGeldAusgabe = New System.Windows.Forms.Panel()
         Me.lblError = New System.Windows.Forms.Label()
         Me.tmrSoftice = New System.Windows.Forms.Timer(Me.components)
-        Me.picVanile = New System.Windows.Forms.PictureBox()
-        Me.picErdbeere = New System.Windows.Forms.PictureBox()
-        Me.mpicSchoko = New System.Windows.Forms.PictureBox()
         Me.pnlIceAnimation = New System.Windows.Forms.Panel()
+        Me.picVanile = New System.Windows.Forms.PictureBox()
+        Me.mpicSchoko = New System.Windows.Forms.PictureBox()
+        Me.picErdbeere = New System.Windows.Forms.PictureBox()
+        Me.pic10rp = New System.Windows.Forms.PictureBox()
+        Me.pic5Fr = New System.Windows.Forms.PictureBox()
+        Me.pic2Fr = New System.Windows.Forms.PictureBox()
+        Me.pic50rp = New System.Windows.Forms.PictureBox()
+        Me.pic1Fr = New System.Windows.Forms.PictureBox()
+        Me.pic20rp = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.pnlSize.SuspendLayout()
         Me.pnlPreis.SuspendLayout()
         Me.pnlGeldschlitz.SuspendLayout()
         Me.pnlGeld.SuspendLayout()
+        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic1Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -318,6 +319,94 @@ Partial Class frmMain
         Me.pnlGeld.Size = New System.Drawing.Size(230, 170)
         Me.pnlGeld.TabIndex = 31
         '
+        'pnlContainer
+        '
+        Me.pnlContainer.BackColor = System.Drawing.Color.Transparent
+        Me.pnlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlContainer.ForeColor = System.Drawing.Color.Transparent
+        Me.pnlContainer.Location = New System.Drawing.Point(12, 382)
+        Me.pnlContainer.Name = "pnlContainer"
+        Me.pnlContainer.Size = New System.Drawing.Size(196, 174)
+        Me.pnlContainer.TabIndex = 0
+        '
+        'tmrContainerAnimation
+        '
+        Me.tmrContainerAnimation.Interval = 50
+        '
+        'btnGeldZuerueck
+        '
+        Me.btnGeldZuerueck.Location = New System.Drawing.Point(422, 220)
+        Me.btnGeldZuerueck.Name = "btnGeldZuerueck"
+        Me.btnGeldZuerueck.Size = New System.Drawing.Size(75, 49)
+        Me.btnGeldZuerueck.TabIndex = 32
+        Me.btnGeldZuerueck.Text = "Geld Zurück"
+        Me.btnGeldZuerueck.UseVisualStyleBackColor = True
+        '
+        'pnlGeldAusgabe
+        '
+        Me.pnlGeldAusgabe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlGeldAusgabe.Location = New System.Drawing.Point(234, 618)
+        Me.pnlGeldAusgabe.Name = "pnlGeldAusgabe"
+        Me.pnlGeldAusgabe.Size = New System.Drawing.Size(280, 95)
+        Me.pnlGeldAusgabe.TabIndex = 33
+        '
+        'lblError
+        '
+        Me.lblError.AutoSize = True
+        Me.lblError.ForeColor = System.Drawing.Color.Red
+        Me.lblError.Location = New System.Drawing.Point(330, 79)
+        Me.lblError.Name = "lblError"
+        Me.lblError.Size = New System.Drawing.Size(0, 13)
+        Me.lblError.TabIndex = 34
+        '
+        'tmrSoftice
+        '
+        '
+        'pnlIceAnimation
+        '
+        Me.pnlIceAnimation.ForeColor = System.Drawing.Color.Silver
+        Me.pnlIceAnimation.Location = New System.Drawing.Point(27, 287)
+        Me.pnlIceAnimation.Name = "pnlIceAnimation"
+        Me.pnlIceAnimation.Size = New System.Drawing.Size(200, 100)
+        Me.pnlIceAnimation.TabIndex = 38
+        '
+        'picVanile
+        '
+        Me.picVanile.BackColor = System.Drawing.Color.Transparent
+        Me.picVanile.Image = CType(resources.GetObject("picVanile.Image"), System.Drawing.Image)
+        Me.picVanile.Location = New System.Drawing.Point(621, 443)
+        Me.picVanile.Name = "picVanile"
+        Me.picVanile.Size = New System.Drawing.Size(100, 50)
+        Me.picVanile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picVanile.TabIndex = 37
+        Me.picVanile.TabStop = False
+        Me.picVanile.Visible = False
+        '
+        'mpicSchoko
+        '
+        Me.mpicSchoko.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mpicSchoko.BackColor = System.Drawing.Color.Transparent
+        Me.mpicSchoko.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.mpicSchoko.Image = Global.Softice_Automat.My.Resources.Resources.schoko
+        Me.mpicSchoko.Location = New System.Drawing.Point(611, 298)
+        Me.mpicSchoko.Name = "mpicSchoko"
+        Me.mpicSchoko.Size = New System.Drawing.Size(100, 50)
+        Me.mpicSchoko.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.mpicSchoko.TabIndex = 35
+        Me.mpicSchoko.TabStop = False
+        Me.mpicSchoko.Visible = False
+        '
+        'picErdbeere
+        '
+        Me.picErdbeere.Image = Global.Softice_Automat.My.Resources.Resources.erdbeere
+        Me.picErdbeere.Location = New System.Drawing.Point(621, 365)
+        Me.picErdbeere.Name = "picErdbeere"
+        Me.picErdbeere.Size = New System.Drawing.Size(100, 50)
+        Me.picErdbeere.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picErdbeere.TabIndex = 36
+        Me.picErdbeere.TabStop = False
+        Me.picErdbeere.Visible = False
+        '
         'pic10rp
         '
         Me.pic10rp.Image = Global.Softice_Automat.My.Resources.Resources._10Rp_front
@@ -384,93 +473,6 @@ Partial Class frmMain
         Me.pic20rp.TabStop = False
         Me.pic20rp.Tag = ".2"
         '
-        'pnlContainer
-        '
-        Me.pnlContainer.BackColor = System.Drawing.Color.Transparent
-        Me.pnlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlContainer.ForeColor = System.Drawing.Color.Transparent
-        Me.pnlContainer.Location = New System.Drawing.Point(12, 382)
-        Me.pnlContainer.Name = "pnlContainer"
-        Me.pnlContainer.Size = New System.Drawing.Size(196, 174)
-        Me.pnlContainer.TabIndex = 0
-        '
-        'tmrContainerAnimation
-        '
-        Me.tmrContainerAnimation.Interval = 50
-        '
-        'btnGeldZuerueck
-        '
-        Me.btnGeldZuerueck.Location = New System.Drawing.Point(422, 220)
-        Me.btnGeldZuerueck.Name = "btnGeldZuerueck"
-        Me.btnGeldZuerueck.Size = New System.Drawing.Size(75, 49)
-        Me.btnGeldZuerueck.TabIndex = 32
-        Me.btnGeldZuerueck.Text = "Geld Zurück"
-        Me.btnGeldZuerueck.UseVisualStyleBackColor = True
-        '
-        'pnlGeldAusgabe
-        '
-        Me.pnlGeldAusgabe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlGeldAusgabe.Location = New System.Drawing.Point(234, 618)
-        Me.pnlGeldAusgabe.Name = "pnlGeldAusgabe"
-        Me.pnlGeldAusgabe.Size = New System.Drawing.Size(280, 95)
-        Me.pnlGeldAusgabe.TabIndex = 33
-        '
-        'lblError
-        '
-        Me.lblError.AutoSize = True
-        Me.lblError.ForeColor = System.Drawing.Color.Red
-        Me.lblError.Location = New System.Drawing.Point(330, 79)
-        Me.lblError.Name = "lblError"
-        Me.lblError.Size = New System.Drawing.Size(0, 13)
-        Me.lblError.TabIndex = 34
-        '
-        'tmrSoftice
-        '
-        '
-        'picVanile
-        '
-        Me.picVanile.BackColor = System.Drawing.Color.Transparent
-        Me.picVanile.Image = Global.Softice_Automat.My.Resources.Resources.vanille
-        Me.picVanile.Location = New System.Drawing.Point(621, 456)
-        Me.picVanile.Name = "picVanile"
-        Me.picVanile.Size = New System.Drawing.Size(100, 50)
-        Me.picVanile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picVanile.TabIndex = 37
-        Me.picVanile.TabStop = False
-        Me.picVanile.Visible = False
-        '
-        'picErdbeere
-        '
-        Me.picErdbeere.Image = Global.Softice_Automat.My.Resources.Resources.erdbeere
-        Me.picErdbeere.Location = New System.Drawing.Point(611, 382)
-        Me.picErdbeere.Name = "picErdbeere"
-        Me.picErdbeere.Size = New System.Drawing.Size(100, 50)
-        Me.picErdbeere.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picErdbeere.TabIndex = 36
-        Me.picErdbeere.TabStop = False
-        Me.picErdbeere.Visible = False
-        '
-        'picSchoko
-        '
-        Me.mpicSchoko.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.mpicSchoko.BackColor = System.Drawing.Color.Transparent
-        Me.mpicSchoko.Image = Global.Softice_Automat.My.Resources.Resources.schoko
-        Me.mpicSchoko.Location = New System.Drawing.Point(611, 298)
-        Me.mpicSchoko.Name = "picSchoko"
-        Me.mpicSchoko.Size = New System.Drawing.Size(100, 50)
-        Me.mpicSchoko.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.mpicSchoko.TabIndex = 35
-        Me.mpicSchoko.TabStop = False
-        Me.mpicSchoko.Visible = False
-        '
-        'pnlIceAnimation
-        '
-        Me.pnlIceAnimation.ForeColor = System.Drawing.Color.Silver
-        Me.pnlIceAnimation.Location = New System.Drawing.Point(27, 287)
-        Me.pnlIceAnimation.Name = "pnlIceAnimation"
-        Me.pnlIceAnimation.Size = New System.Drawing.Size(200, 100)
-        Me.pnlIceAnimation.TabIndex = 38
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -505,15 +507,15 @@ Partial Class frmMain
         Me.pnlGeldschlitz.ResumeLayout(False)
         Me.pnlGeldschlitz.PerformLayout()
         Me.pnlGeld.ResumeLayout(False)
+        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic1Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
