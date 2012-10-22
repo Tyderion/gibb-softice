@@ -24,14 +24,14 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.grpGeschmack = New System.Windows.Forms.GroupBox()
         Me.lstGeschmack = New System.Windows.Forms.ListBox()
-        Me.rbtSehrKlein = New System.Windows.Forms.RadioButton()
-        Me.rbtKlein = New System.Windows.Forms.RadioButton()
-        Me.rbtMittel = New System.Windows.Forms.RadioButton()
-        Me.rbtGross = New System.Windows.Forms.RadioButton()
-        Me.rbtExtraGross = New System.Windows.Forms.RadioButton()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.optSehrKlein = New System.Windows.Forms.RadioButton()
+        Me.optKlein = New System.Windows.Forms.RadioButton()
+        Me.optMittel = New System.Windows.Forms.RadioButton()
+        Me.optGross = New System.Windows.Forms.RadioButton()
+        Me.optExtraGross = New System.Windows.Forms.RadioButton()
+        Me.grpTypGroesse = New System.Windows.Forms.GroupBox()
         Me.pnlSize = New System.Windows.Forms.Panel()
         Me.cmbType = New System.Windows.Forms.ComboBox()
         Me.lblPreis = New System.Windows.Forms.Label()
@@ -47,6 +47,12 @@ Partial Class frmMain
         Me.pnlOutputAll = New System.Windows.Forms.Panel()
         Me.pnlGeldschlitz = New System.Windows.Forms.Panel()
         Me.pnlGeld = New System.Windows.Forms.Panel()
+        Me.pic10rp = New System.Windows.Forms.PictureBox()
+        Me.pic5Fr = New System.Windows.Forms.PictureBox()
+        Me.pic2Fr = New System.Windows.Forms.PictureBox()
+        Me.pic50rp = New System.Windows.Forms.PictureBox()
+        Me.pic1Fr = New System.Windows.Forms.PictureBox()
+        Me.pic20rp = New System.Windows.Forms.PictureBox()
         Me.pnlContainer = New System.Windows.Forms.Panel()
         Me.tmrContainerAnimation = New System.Windows.Forms.Timer(Me.components)
         Me.btnGeldZuerueck = New System.Windows.Forms.Button()
@@ -57,38 +63,32 @@ Partial Class frmMain
         Me.picVanile = New System.Windows.Forms.PictureBox()
         Me.mpicSchoko = New System.Windows.Forms.PictureBox()
         Me.picErdbeere = New System.Windows.Forms.PictureBox()
-        Me.pic10rp = New System.Windows.Forms.PictureBox()
-        Me.pic5Fr = New System.Windows.Forms.PictureBox()
-        Me.pic2Fr = New System.Windows.Forms.PictureBox()
-        Me.pic50rp = New System.Windows.Forms.PictureBox()
-        Me.pic1Fr = New System.Windows.Forms.PictureBox()
-        Me.pic20rp = New System.Windows.Forms.PictureBox()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.grpGeschmack.SuspendLayout()
+        Me.grpTypGroesse.SuspendLayout()
         Me.pnlSize.SuspendLayout()
         Me.pnlPreis.SuspendLayout()
         Me.pnlGeldschlitz.SuspendLayout()
         Me.pnlGeld.SuspendLayout()
-        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic1Fr, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'GroupBox1
+        'grpGeschmack
         '
-        Me.GroupBox1.Controls.Add(Me.lstGeschmack)
-        Me.GroupBox1.Location = New System.Drawing.Point(27, 79)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(132, 191)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Geschmack"
+        Me.grpGeschmack.Controls.Add(Me.lstGeschmack)
+        Me.grpGeschmack.Location = New System.Drawing.Point(27, 79)
+        Me.grpGeschmack.Name = "grpGeschmack"
+        Me.grpGeschmack.Size = New System.Drawing.Size(132, 191)
+        Me.grpGeschmack.TabIndex = 0
+        Me.grpGeschmack.TabStop = False
+        Me.grpGeschmack.Text = "Geschmack"
         '
         'lstGeschmack
         '
@@ -101,84 +101,84 @@ Partial Class frmMain
         Me.lstGeschmack.Size = New System.Drawing.Size(120, 143)
         Me.lstGeschmack.TabIndex = 0
         '
-        'rbtSehrKlein
+        'optSehrKlein
         '
-        Me.rbtSehrKlein.AutoSize = True
-        Me.rbtSehrKlein.Location = New System.Drawing.Point(3, 95)
-        Me.rbtSehrKlein.Name = "rbtSehrKlein"
-        Me.rbtSehrKlein.Size = New System.Drawing.Size(73, 17)
-        Me.rbtSehrKlein.TabIndex = 4
-        Me.rbtSehrKlein.TabStop = True
-        Me.rbtSehrKlein.Tag = ".3"
-        Me.rbtSehrKlein.Text = "Sehr Klein"
-        Me.rbtSehrKlein.UseVisualStyleBackColor = True
+        Me.optSehrKlein.AutoSize = True
+        Me.optSehrKlein.Location = New System.Drawing.Point(3, 95)
+        Me.optSehrKlein.Name = "optSehrKlein"
+        Me.optSehrKlein.Size = New System.Drawing.Size(73, 17)
+        Me.optSehrKlein.TabIndex = 4
+        Me.optSehrKlein.TabStop = True
+        Me.optSehrKlein.Tag = ".3"
+        Me.optSehrKlein.Text = "Sehr Klein"
+        Me.optSehrKlein.UseVisualStyleBackColor = True
         '
-        'rbtKlein
+        'optKlein
         '
-        Me.rbtKlein.AutoSize = True
-        Me.rbtKlein.Location = New System.Drawing.Point(3, 72)
-        Me.rbtKlein.Name = "rbtKlein"
-        Me.rbtKlein.Size = New System.Drawing.Size(48, 17)
-        Me.rbtKlein.TabIndex = 3
-        Me.rbtKlein.TabStop = True
-        Me.rbtKlein.Tag = ".4"
-        Me.rbtKlein.Text = "Klein"
-        Me.rbtKlein.UseVisualStyleBackColor = True
+        Me.optKlein.AutoSize = True
+        Me.optKlein.Location = New System.Drawing.Point(3, 72)
+        Me.optKlein.Name = "optKlein"
+        Me.optKlein.Size = New System.Drawing.Size(48, 17)
+        Me.optKlein.TabIndex = 3
+        Me.optKlein.TabStop = True
+        Me.optKlein.Tag = ".4"
+        Me.optKlein.Text = "Klein"
+        Me.optKlein.UseVisualStyleBackColor = True
         '
-        'rbtMittel
+        'optMittel
         '
-        Me.rbtMittel.AutoSize = True
-        Me.rbtMittel.Location = New System.Drawing.Point(3, 49)
-        Me.rbtMittel.Name = "rbtMittel"
-        Me.rbtMittel.Size = New System.Drawing.Size(80, 17)
-        Me.rbtMittel.TabIndex = 2
-        Me.rbtMittel.TabStop = True
-        Me.rbtMittel.Tag = ".6"
-        Me.rbtMittel.Text = "Mittel Gross"
-        Me.rbtMittel.UseVisualStyleBackColor = True
+        Me.optMittel.AutoSize = True
+        Me.optMittel.Location = New System.Drawing.Point(3, 49)
+        Me.optMittel.Name = "optMittel"
+        Me.optMittel.Size = New System.Drawing.Size(80, 17)
+        Me.optMittel.TabIndex = 2
+        Me.optMittel.TabStop = True
+        Me.optMittel.Tag = ".6"
+        Me.optMittel.Text = "Mittel Gross"
+        Me.optMittel.UseVisualStyleBackColor = True
         '
-        'rbtGross
+        'optGross
         '
-        Me.rbtGross.AutoSize = True
-        Me.rbtGross.Location = New System.Drawing.Point(3, 26)
-        Me.rbtGross.Name = "rbtGross"
-        Me.rbtGross.Size = New System.Drawing.Size(52, 17)
-        Me.rbtGross.TabIndex = 1
-        Me.rbtGross.TabStop = True
-        Me.rbtGross.Tag = ".8"
-        Me.rbtGross.Text = "Gross"
-        Me.rbtGross.UseVisualStyleBackColor = True
+        Me.optGross.AutoSize = True
+        Me.optGross.Location = New System.Drawing.Point(3, 26)
+        Me.optGross.Name = "optGross"
+        Me.optGross.Size = New System.Drawing.Size(52, 17)
+        Me.optGross.TabIndex = 1
+        Me.optGross.TabStop = True
+        Me.optGross.Tag = ".8"
+        Me.optGross.Text = "Gross"
+        Me.optGross.UseVisualStyleBackColor = True
         '
-        'rbtExtraGross
+        'optExtraGross
         '
-        Me.rbtExtraGross.AutoSize = True
-        Me.rbtExtraGross.Location = New System.Drawing.Point(3, 3)
-        Me.rbtExtraGross.Name = "rbtExtraGross"
-        Me.rbtExtraGross.Size = New System.Drawing.Size(79, 17)
-        Me.rbtExtraGross.TabIndex = 0
-        Me.rbtExtraGross.TabStop = True
-        Me.rbtExtraGross.Tag = "1"
-        Me.rbtExtraGross.Text = "Extra Gross"
-        Me.rbtExtraGross.UseVisualStyleBackColor = True
+        Me.optExtraGross.AutoSize = True
+        Me.optExtraGross.Location = New System.Drawing.Point(3, 3)
+        Me.optExtraGross.Name = "optExtraGross"
+        Me.optExtraGross.Size = New System.Drawing.Size(79, 17)
+        Me.optExtraGross.TabIndex = 0
+        Me.optExtraGross.TabStop = True
+        Me.optExtraGross.Tag = "1"
+        Me.optExtraGross.Text = "Extra Gross"
+        Me.optExtraGross.UseVisualStyleBackColor = True
         '
-        'GroupBox2
+        'grpTypGroesse
         '
-        Me.GroupBox2.Controls.Add(Me.pnlSize)
-        Me.GroupBox2.Controls.Add(Me.cmbType)
-        Me.GroupBox2.Location = New System.Drawing.Point(178, 79)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(132, 191)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Typ && Grösse"
+        Me.grpTypGroesse.Controls.Add(Me.pnlSize)
+        Me.grpTypGroesse.Controls.Add(Me.cmbType)
+        Me.grpTypGroesse.Location = New System.Drawing.Point(178, 79)
+        Me.grpTypGroesse.Name = "grpTypGroesse"
+        Me.grpTypGroesse.Size = New System.Drawing.Size(132, 191)
+        Me.grpTypGroesse.TabIndex = 1
+        Me.grpTypGroesse.TabStop = False
+        Me.grpTypGroesse.Text = "Typ && Grösse"
         '
         'pnlSize
         '
-        Me.pnlSize.Controls.Add(Me.rbtSehrKlein)
-        Me.pnlSize.Controls.Add(Me.rbtExtraGross)
-        Me.pnlSize.Controls.Add(Me.rbtKlein)
-        Me.pnlSize.Controls.Add(Me.rbtGross)
-        Me.pnlSize.Controls.Add(Me.rbtMittel)
+        Me.pnlSize.Controls.Add(Me.optSehrKlein)
+        Me.pnlSize.Controls.Add(Me.optExtraGross)
+        Me.pnlSize.Controls.Add(Me.optKlein)
+        Me.pnlSize.Controls.Add(Me.optGross)
+        Me.pnlSize.Controls.Add(Me.optMittel)
         Me.pnlSize.Location = New System.Drawing.Point(7, 46)
         Me.pnlSize.Name = "pnlSize"
         Me.pnlSize.Size = New System.Drawing.Size(109, 131)
@@ -320,6 +320,72 @@ Partial Class frmMain
         Me.pnlGeld.Size = New System.Drawing.Size(230, 170)
         Me.pnlGeld.TabIndex = 31
         '
+        'pic10rp
+        '
+        Me.pic10rp.Image = Global.Softice_Automat.My.Resources.Resources._10Rp_front
+        Me.pic10rp.Location = New System.Drawing.Point(147, 92)
+        Me.pic10rp.Name = "pic10rp"
+        Me.pic10rp.Size = New System.Drawing.Size(68, 63)
+        Me.pic10rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pic10rp.TabIndex = 14
+        Me.pic10rp.TabStop = False
+        Me.pic10rp.Tag = ".1"
+        '
+        'pic5Fr
+        '
+        Me.pic5Fr.Image = Global.Softice_Automat.My.Resources.Resources._5Fr_front
+        Me.pic5Fr.Location = New System.Drawing.Point(12, 13)
+        Me.pic5Fr.Name = "pic5Fr"
+        Me.pic5Fr.Size = New System.Drawing.Size(65, 73)
+        Me.pic5Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pic5Fr.TabIndex = 9
+        Me.pic5Fr.TabStop = False
+        Me.pic5Fr.Tag = "5"
+        '
+        'pic2Fr
+        '
+        Me.pic2Fr.Image = Global.Softice_Automat.My.Resources.Resources._2Fr_front
+        Me.pic2Fr.Location = New System.Drawing.Point(83, 13)
+        Me.pic2Fr.Name = "pic2Fr"
+        Me.pic2Fr.Size = New System.Drawing.Size(58, 73)
+        Me.pic2Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pic2Fr.TabIndex = 10
+        Me.pic2Fr.TabStop = False
+        Me.pic2Fr.Tag = "2"
+        '
+        'pic50rp
+        '
+        Me.pic50rp.Image = Global.Softice_Automat.My.Resources.Resources._50Rp_front
+        Me.pic50rp.Location = New System.Drawing.Point(12, 92)
+        Me.pic50rp.Name = "pic50rp"
+        Me.pic50rp.Size = New System.Drawing.Size(65, 63)
+        Me.pic50rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pic50rp.TabIndex = 11
+        Me.pic50rp.TabStop = False
+        Me.pic50rp.Tag = ".5"
+        '
+        'pic1Fr
+        '
+        Me.pic1Fr.Image = Global.Softice_Automat.My.Resources.Resources._1Fr_front
+        Me.pic1Fr.Location = New System.Drawing.Point(147, 13)
+        Me.pic1Fr.Name = "pic1Fr"
+        Me.pic1Fr.Size = New System.Drawing.Size(68, 72)
+        Me.pic1Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pic1Fr.TabIndex = 12
+        Me.pic1Fr.TabStop = False
+        Me.pic1Fr.Tag = "1"
+        '
+        'pic20rp
+        '
+        Me.pic20rp.Image = Global.Softice_Automat.My.Resources.Resources._20Rp_front
+        Me.pic20rp.Location = New System.Drawing.Point(83, 92)
+        Me.pic20rp.Name = "pic20rp"
+        Me.pic20rp.Size = New System.Drawing.Size(58, 63)
+        Me.pic20rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pic20rp.TabIndex = 13
+        Me.pic20rp.TabStop = False
+        Me.pic20rp.Tag = ".2"
+        '
         'pnlContainer
         '
         Me.pnlContainer.BackColor = System.Drawing.Color.Transparent
@@ -407,72 +473,6 @@ Partial Class frmMain
         Me.picErdbeere.TabStop = False
         Me.picErdbeere.Visible = False
         '
-        'pic10rp
-        '
-        Me.pic10rp.Image = Global.Softice_Automat.My.Resources.Resources._10Rp_front
-        Me.pic10rp.Location = New System.Drawing.Point(147, 92)
-        Me.pic10rp.Name = "pic10rp"
-        Me.pic10rp.Size = New System.Drawing.Size(68, 63)
-        Me.pic10rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pic10rp.TabIndex = 14
-        Me.pic10rp.TabStop = False
-        Me.pic10rp.Tag = ".1"
-        '
-        'pic5Fr
-        '
-        Me.pic5Fr.Image = Global.Softice_Automat.My.Resources.Resources._5Fr_front
-        Me.pic5Fr.Location = New System.Drawing.Point(12, 13)
-        Me.pic5Fr.Name = "pic5Fr"
-        Me.pic5Fr.Size = New System.Drawing.Size(65, 73)
-        Me.pic5Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pic5Fr.TabIndex = 9
-        Me.pic5Fr.TabStop = False
-        Me.pic5Fr.Tag = "5"
-        '
-        'pic2Fr
-        '
-        Me.pic2Fr.Image = Global.Softice_Automat.My.Resources.Resources._2Fr_front
-        Me.pic2Fr.Location = New System.Drawing.Point(83, 13)
-        Me.pic2Fr.Name = "pic2Fr"
-        Me.pic2Fr.Size = New System.Drawing.Size(58, 73)
-        Me.pic2Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pic2Fr.TabIndex = 10
-        Me.pic2Fr.TabStop = False
-        Me.pic2Fr.Tag = "2"
-        '
-        'pic50rp
-        '
-        Me.pic50rp.Image = Global.Softice_Automat.My.Resources.Resources._50Rp_front
-        Me.pic50rp.Location = New System.Drawing.Point(12, 92)
-        Me.pic50rp.Name = "pic50rp"
-        Me.pic50rp.Size = New System.Drawing.Size(65, 63)
-        Me.pic50rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pic50rp.TabIndex = 11
-        Me.pic50rp.TabStop = False
-        Me.pic50rp.Tag = ".5"
-        '
-        'pic1Fr
-        '
-        Me.pic1Fr.Image = Global.Softice_Automat.My.Resources.Resources._1Fr_front
-        Me.pic1Fr.Location = New System.Drawing.Point(147, 13)
-        Me.pic1Fr.Name = "pic1Fr"
-        Me.pic1Fr.Size = New System.Drawing.Size(68, 72)
-        Me.pic1Fr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pic1Fr.TabIndex = 12
-        Me.pic1Fr.TabStop = False
-        Me.pic1Fr.Tag = "1"
-        '
-        'pic20rp
-        '
-        Me.pic20rp.Image = Global.Softice_Automat.My.Resources.Resources._20Rp_front
-        Me.pic20rp.Location = New System.Drawing.Point(83, 92)
-        Me.pic20rp.Name = "pic20rp"
-        Me.pic20rp.Size = New System.Drawing.Size(58, 63)
-        Me.pic20rp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pic20rp.TabIndex = 13
-        Me.pic20rp.TabStop = False
-        Me.pic20rp.Tag = ".2"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -493,13 +493,13 @@ Partial Class frmMain
         Me.Controls.Add(Me.lblSelection)
         Me.Controls.Add(Me.pnlPreis)
         Me.Controls.Add(Me.btnBestaetigen)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.grpTypGroesse)
+        Me.Controls.Add(Me.grpGeschmack)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmMain"
         Me.Text = "Ice-O-Matic"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
+        Me.grpGeschmack.ResumeLayout(False)
+        Me.grpTypGroesse.ResumeLayout(False)
         Me.pnlSize.ResumeLayout(False)
         Me.pnlSize.PerformLayout()
         Me.pnlPreis.ResumeLayout(False)
@@ -507,27 +507,27 @@ Partial Class frmMain
         Me.pnlGeldschlitz.ResumeLayout(False)
         Me.pnlGeldschlitz.PerformLayout()
         Me.pnlGeld.ResumeLayout(False)
-        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic2Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic50rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic1Fr, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic20rp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picVanile, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.mpicSchoko, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picErdbeere, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents grpGeschmack As System.Windows.Forms.GroupBox
     Friend WithEvents lstGeschmack As System.Windows.Forms.ListBox
-    Friend WithEvents rbtSehrKlein As System.Windows.Forms.RadioButton
-    Friend WithEvents rbtKlein As System.Windows.Forms.RadioButton
-    Friend WithEvents rbtMittel As System.Windows.Forms.RadioButton
-    Friend WithEvents rbtGross As System.Windows.Forms.RadioButton
-    Friend WithEvents rbtExtraGross As System.Windows.Forms.RadioButton
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents optSehrKlein As System.Windows.Forms.RadioButton
+    Friend WithEvents optKlein As System.Windows.Forms.RadioButton
+    Friend WithEvents optMittel As System.Windows.Forms.RadioButton
+    Friend WithEvents optGross As System.Windows.Forms.RadioButton
+    Friend WithEvents optExtraGross As System.Windows.Forms.RadioButton
+    Friend WithEvents grpTypGroesse As System.Windows.Forms.GroupBox
     Friend WithEvents cmbType As System.Windows.Forms.ComboBox
     Friend WithEvents pnlSize As System.Windows.Forms.Panel
     Friend WithEvents lblPreis As System.Windows.Forms.Label
