@@ -1,6 +1,6 @@
 ﻿Public Class frmMain
     ' Global Settings
-    Private ReadOnly mcolBackgroundColor As Color = Color.Silver
+    Private ReadOnly mcolBackgroundColor As Color = Color.WhiteSmoke
     Private ReadOnly clrDrawingColor As Color = Color.Black
 
     ' Variables defining the output section
@@ -69,6 +69,16 @@
         pnlContainer.BringToFront()
         ' Images for output
         mimgCoinImages = {pic5Fr.Image, pic2Fr.Image, pic1Fr.Image, pic50rp.Image, pic20rp.Image, pic10rp.Image}
+        ' Set Panel backgounds
+        pnlContainer.BackColor = mcolBackgroundColor
+        pnlGeld.BackColor = mcolBackgroundColor
+        pnlOutputAll.BackColor = mcolBackgroundColor
+        pnlGeldAusgabe.BackColor = mcolBackgroundColor
+        pnlPreis.BackColor = mcolBackgroundColor
+        pnlIceAnimation.BackColor = mcolBackgroundColor
+        pnlSize.BackColor = mcolBackgroundColor
+        lstGeschmack.BackColor = mcolBackgroundColor
+        Me.BackColor = mcolBackgroundColor
     End Sub
 
     'Timers
@@ -90,7 +100,7 @@
             msngTimerConainerHeight = 0
             tmrContainerAnimation.Stop()
         End If
-        DrawOutput(clrDrawingColor, pnlOutputAll)
+        drawOutputBackground(clrDrawingColor, pnlOutputAll)
     End Sub
 
 
@@ -100,7 +110,7 @@
         If mblnFirst Then
             ' Make sure this only runs once by stopping the timer while changing the variable
             tmrSoftice.Stop()
-            drawOutputContainer(mclrChosenColor, True)
+            drawOutputContainer(mclrChosenColor)
             mblnFirst = False
             tmrSoftice.Start()
         End If
@@ -121,7 +131,7 @@
             mblnFirst = True
         End If
 
-        DrawOutput(clrDrawingColor, pnlOutputAll)
+        drawOutputBackground(clrDrawingColor, pnlOutputAll)
     End Sub
     ' Animation Functions (Drawing Stuff)
     Private Sub animateOutputContainer(ByRef pnl As Panel)
@@ -135,13 +145,13 @@
             ' Start the Animation
             tmrContainerAnimation.Start()
         End If
-        drawOutput(clrDrawingColor, pnl)
+        drawOutputBackground(clrDrawingColor, pnl)
     End Sub
 
     ' Draw Functions
     Private Sub pnlOutputAll_Paint(sender As Object, e As PaintEventArgs) Handles pnlOutputAll.Paint
         ' Draw Output Area when program starts
-        drawOutput(clrDrawingColor, pnlOutputAll)
+        drawOutputBackground(clrDrawingColor, pnlOutputAll)
     End Sub
 
     Private Sub createSoftIce()
@@ -158,8 +168,8 @@
         End If
 
         ' Adjust the height depending on the size
-        mpicChosenGeschmack.Height = msngHeight*msngSizeSelection
-        mpicChosenGeschmack.Width = 2*msngRealRadii(0)
+        mpicChosenGeschmack.Height = msngHeight * msngSizeSelection
+        mpicChosenGeschmack.Width = 2 * msngRealRadii(0)
         pnlIceAnimation.Height = mpicChosenGeschmack.Height
         pnlIceAnimation.Width = mpicChosenGeschmack.Width
         ' Set the location for a cornet
@@ -170,7 +180,7 @@
             mpicChosenGeschmack.Location = New Point(pnlOutputAll.Location.X + pnlOutputAll.Width / 2 - pnlContainer.Width / 2 + 18 * msngSizeSelection,
                                                      pnlContainer.Location.Y + mpntRealTopCenter.Y - mpicChosenGeschmack.Height)
         End If
-        drawOutput(clrDrawingColor, pnlOutputAll)
+        drawOutputBackground(clrDrawingColor, pnlOutputAll)
         ' Set the Ice Height to the height of the pic minus the vertical radius
         msngTimerIceHeight = mpicChosenGeschmack.Height - msngRealRadii(1)
         mpicChosenGeschmack.BringToFront()
@@ -180,39 +190,36 @@
         mblnRedrawChangeHappened = True
     End Sub
 
-    Private Sub drawOutput(ByVal color As Color, ByRef pnl As Panel)
+    Private Sub drawOutputBackground(ByVal clr As Color, ByRef pnl As Panel)
         ' Compute Size
         Dim intWidth As Integer = Math.Abs(mpntOutputBottom.X - mpntOutputTop.X)
         Dim intHeight As Integer = Math.Abs(mpntOutputBottom.X - mpntOutputTop.X)
-        Dim pen As Pen = New Pen(color)
+        Dim pen As Pen = New Pen(clr)
         Dim rect As Rectangle = New Rectangle(mpntOutputTop.X, mpntOutputTop.Y, intWidth, intHeight)
         Dim gr As Graphics = pnl.CreateGraphics
         gr.DrawRectangle(pen, rect)
         ' Draw Front Rectangle
-        gr.DrawLine(pen, New Point(mpntOutputTop.X + 1/3*intWidth, mpntOutputBottom.Y - 1/3*intHeight),
-                    New Point(mpntOutputTop.X + 1/3*intWidth, mpntOutputTop.Y))
+        gr.DrawLine(pen, New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputBottom.Y - 1 / 3 * intHeight),
+                    New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputTop.Y))
         ' Draw Vertical Line
-        gr.DrawLine(pen, New Point(mpntOutputTop.X + 1/3*intWidth, mpntOutputBottom.Y - 1/3*intHeight),
-                    New Point(mpntOutputBottom.X, mpntOutputBottom.Y - 1/3*intHeight))
+        gr.DrawLine(pen, New Point(mpntOutputTop.X + 1 / 3 * intWidth, mpntOutputBottom.Y - 1 / 3 * intHeight),
+                    New Point(mpntOutputBottom.X, mpntOutputBottom.Y - 1 / 3 * intHeight))
         ' Draw Horizontal line
     End Sub
 
-    Private Sub drawOutputContainer(ByVal clrFillColor As Color, Optional ByVal blnForceRedraw As Boolean = False)
+    Private Sub drawOutputContainer(ByVal clrFillColor As Color)
         ' Draw the Container and set the realTop variable to its center
         If mblnCupSelected Then
-            mpntRealTopCenter = drawCup(clrDrawingColor, pnlContainer, blnForceRedraw Or mblnRedrawChangeHappened,
-                                        clrFillColor, msngSizeSelection)
+            mpntRealTopCenter = drawCup(clrDrawingColor, pnlContainer, clrFillColor, msngSizeSelection)
         Else
-            mpntRealTopCenter = drawCornet(clrDrawingColor, pnlContainer, blnForceRedraw Or mblnRedrawChangeHappened,
-                                           clrFillColor, msngSizeSelection)
+            mpntRealTopCenter = drawCornet(clrDrawingColor, pnlContainer, clrFillColor, msngSizeSelection)
         End If
     End Sub
 
-    Private Function drawCup(ByVal color As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean,
-                             ByVal clrFill As Color, Optional ByVal sngSizeMultiplier As Single = 1)
+    Private Function drawCup(ByVal clr As Color, ByRef pnlOutput As Panel,
+                             ByVal clrFill As Color, ByVal sngSizeMultiplier As Single)
         ' Draw the Cup
         Dim gr As Graphics = getClearedGraphics(pnlOutput)
-        pnlOutput.BackColor = color.Transparent
         ' Multiply Radii with sizemultiplier
         Dim sngHorizontalRadius As Single = mintCupHorizontalRadius * sngSizeMultiplier
         Dim sngVerticalRaidus As Single = mintCupVerticalRadius * sngSizeMultiplier
@@ -235,30 +242,31 @@
                                               pntCenterTop.Y + 35 * sngSizeMultiplier,
                                               90 * sngSizeMultiplier,
                                               30 * sngSizeMultiplier)
-        gr.DrawArc(New Pen(color), rect, 0, 179)
         ' Draw Bottom Arc
-        gr.DrawLine(New Pen(color),
+        gr.DrawArc(New Pen(clr), rect, 0, 179)
+        ' Draw left Line
+        gr.DrawLine(New Pen(clr),
                     New Point(pntCenterTop.X - 45 * sngSizeMultiplier,
                               pntCenterTop.Y + 50 * sngSizeMultiplier),
                     New Point(pntCenterTop.X - sngHorizontalRadius + 1,
                               pntCenterTop.Y + 5 * sngSizeMultiplier))
-        ' Draw left Line
-        gr.DrawLine(New Pen(color),
+        ' Draw right Line
+        gr.DrawLine(New Pen(clr),
                     New Point(pntCenterTop.X + 45 * sngSizeMultiplier,
                               pntCenterTop.Y + 50 * sngSizeMultiplier),
                     New Point(pntCenterTop.X + sngHorizontalRadius - 1,
                               pntCenterTop.Y + 5 * sngSizeMultiplier))
-        ' Draw right Line
+
         Return pntCenterTop
     End Function
 
 
 
-    Private Function drawCornet(ByVal clrMain As Color, ByRef pnlOutput As Panel, ByVal blnAnimate As Boolean,
-                                ByVal clrFill As Color, Optional ByVal sngSizeMultiplier As Single = 1)
+    Private Function drawCornet(ByVal clrMain As Color, ByRef pnlOutput As Panel,
+                                ByVal clrFill As Color, ByVal sngSizeMultiplier As Single)
         Dim gr As Graphics = getClearedGraphics(pnlOutput)
         ' Radii get multiplied by the sizeMultiplier
-        Dim sngHorizontalRadius As Single = mintCornetHorizontalRadius*sngSizeMultiplier
+        Dim sngHorizontalRadius As Single = mintCornetHorizontalRadius * sngSizeMultiplier
         Dim sngVerticalRaidus As Single = mintCornetVerticalRadius * sngSizeMultiplier
         'Biggest is a bit smaller than the cup
         If sngSizeMultiplier > 0.99 Then
@@ -270,7 +278,7 @@
         msngRealRadii = {sngHorizontalRadius, sngVerticalRaidus}
         ' Set the container size
         msngContainerHeight = 2 * sngVerticalRaidus + mintCornetHeight * sngSizeMultiplier
-        pnlOutput.Width = 2*sngHorizontalRadius + 8
+        pnlOutput.Width = 2 * sngHorizontalRadius + 8
 
         ' Update after changing the size to make everything appear correctly 
         pnlOutput.Update()
@@ -377,8 +385,8 @@
                                                   Optional ByVal intIndexOfCapital As Integer = 0) As String
         ' Transforms a string to lowercase with one optional letter as capital
         Dim chrarray = str.ToCharArray
-        For Int As Integer = 0 To chrarray.Length - 1
-            chrarray(Int) = Char.ToLower(chrarray(Int))
+        For int As Integer = 0 To chrarray.Length - 1
+            chrarray(int) = Char.ToLower(chrarray(int))
         Next
         If intIndexOfCapital >= 0 Then
             chrarray(intIndexOfCapital) = Char.ToUpper(chrarray(intIndexOfCapital))
@@ -405,7 +413,7 @@
         Next
     End Sub
 
-    Private Function splitmoney(ByVal sngMoney As Double) As Integer()
+    Private Function splitmoney(ByVal sngMoney As Single) As Integer()
         'Returns an array containing an amount for the different coins which make up sngMoney. 
         ' Could also be done with a for loop over the array instead of a "recursive" version
         If (sngMoney <= 0.05) Then

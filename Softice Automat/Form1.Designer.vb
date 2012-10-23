@@ -43,9 +43,7 @@ Partial Class frmMain
         Me.btnBestaetigen = New System.Windows.Forms.Button()
         Me.pnlPreis = New System.Windows.Forms.Panel()
         Me.lblSelection = New System.Windows.Forms.Label()
-        Me.lblGeldschlitz = New System.Windows.Forms.Label()
         Me.pnlOutputAll = New System.Windows.Forms.Panel()
-        Me.pnlGeldschlitz = New System.Windows.Forms.Panel()
         Me.pnlGeld = New System.Windows.Forms.Panel()
         Me.pic10rp = New System.Windows.Forms.PictureBox()
         Me.pic5Fr = New System.Windows.Forms.PictureBox()
@@ -67,7 +65,6 @@ Partial Class frmMain
         Me.grpTypGroesse.SuspendLayout()
         Me.pnlSize.SuspendLayout()
         Me.pnlPreis.SuspendLayout()
-        Me.pnlGeldschlitz.SuspendLayout()
         Me.pnlGeld.SuspendLayout()
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -267,7 +264,7 @@ Partial Class frmMain
         Me.pnlPreis.Controls.Add(Me.lblBezahltFr)
         Me.pnlPreis.Controls.Add(Me.lblBezahlt)
         Me.pnlPreis.Controls.Add(Me.lblZuBezahlenFr)
-        Me.pnlPreis.Location = New System.Drawing.Point(322, 19)
+        Me.pnlPreis.Location = New System.Drawing.Point(328, 91)
         Me.pnlPreis.Name = "pnlPreis"
         Me.pnlPreis.Size = New System.Drawing.Size(169, 54)
         Me.pnlPreis.TabIndex = 22
@@ -275,21 +272,12 @@ Partial Class frmMain
         'lblSelection
         '
         Me.lblSelection.AutoSize = True
-        Me.lblSelection.Location = New System.Drawing.Point(30, 19)
+        Me.lblSelection.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSelection.Location = New System.Drawing.Point(197, 28)
         Me.lblSelection.Name = "lblSelection"
-        Me.lblSelection.Size = New System.Drawing.Size(200, 13)
+        Me.lblSelection.Size = New System.Drawing.Size(300, 20)
         Me.lblSelection.TabIndex = 23
         Me.lblSelection.Text = "Extra grosser Becher mit Schokoladeneis"
-        '
-        'lblGeldschlitz
-        '
-        Me.lblGeldschlitz.AutoSize = True
-        Me.lblGeldschlitz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblGeldschlitz.Location = New System.Drawing.Point(22, 13)
-        Me.lblGeldschlitz.Name = "lblGeldschlitz"
-        Me.lblGeldschlitz.Size = New System.Drawing.Size(117, 15)
-        Me.lblGeldschlitz.TabIndex = 24
-        Me.lblGeldschlitz.Text = "                                    "
         '
         'pnlOutputAll
         '
@@ -297,15 +285,6 @@ Partial Class frmMain
         Me.pnlOutputAll.Name = "pnlOutputAll"
         Me.pnlOutputAll.Size = New System.Drawing.Size(354, 336)
         Me.pnlOutputAll.TabIndex = 29
-        '
-        'pnlGeldschlitz
-        '
-        Me.pnlGeldschlitz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlGeldschlitz.Controls.Add(Me.lblGeldschlitz)
-        Me.pnlGeldschlitz.Location = New System.Drawing.Point(523, 20)
-        Me.pnlGeldschlitz.Name = "pnlGeldschlitz"
-        Me.pnlGeldschlitz.Size = New System.Drawing.Size(160, 46)
-        Me.pnlGeldschlitz.TabIndex = 30
         '
         'pnlGeld
         '
@@ -421,7 +400,7 @@ Partial Class frmMain
         '
         Me.lblError.AutoSize = True
         Me.lblError.ForeColor = System.Drawing.Color.Red
-        Me.lblError.Location = New System.Drawing.Point(330, 79)
+        Me.lblError.Location = New System.Drawing.Point(208, 63)
         Me.lblError.Name = "lblError"
         Me.lblError.Size = New System.Drawing.Size(0, 13)
         Me.lblError.TabIndex = 34
@@ -432,9 +411,9 @@ Partial Class frmMain
         'pnlIceAnimation
         '
         Me.pnlIceAnimation.ForeColor = System.Drawing.Color.Silver
-        Me.pnlIceAnimation.Location = New System.Drawing.Point(27, 287)
+        Me.pnlIceAnimation.Location = New System.Drawing.Point(12, 287)
         Me.pnlIceAnimation.Name = "pnlIceAnimation"
-        Me.pnlIceAnimation.Size = New System.Drawing.Size(200, 100)
+        Me.pnlIceAnimation.Size = New System.Drawing.Size(196, 89)
         Me.pnlIceAnimation.TabIndex = 38
         '
         'picVanile
@@ -454,7 +433,7 @@ Partial Class frmMain
         Me.mpicSchoko.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mpicSchoko.BackColor = System.Drawing.Color.Transparent
         Me.mpicSchoko.Image = Global.Softice_Automat.My.Resources.Resources.schoko
-        Me.mpicSchoko.Location = New System.Drawing.Point(611, 298)
+        Me.mpicSchoko.Location = New System.Drawing.Point(621, 298)
         Me.mpicSchoko.Name = "mpicSchoko"
         Me.mpicSchoko.Size = New System.Drawing.Size(100, 50)
         Me.mpicSchoko.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -488,7 +467,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.pnlGeldAusgabe)
         Me.Controls.Add(Me.btnGeldZuerueck)
         Me.Controls.Add(Me.pnlGeld)
-        Me.Controls.Add(Me.pnlGeldschlitz)
         Me.Controls.Add(Me.pnlOutputAll)
         Me.Controls.Add(Me.lblSelection)
         Me.Controls.Add(Me.pnlPreis)
@@ -497,15 +475,13 @@ Partial Class frmMain
         Me.Controls.Add(Me.grpGeschmack)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmMain"
-        Me.Text = "Ice-O-Matic"
+        Me.Text = "Softice Automat"
         Me.grpGeschmack.ResumeLayout(False)
         Me.grpTypGroesse.ResumeLayout(False)
         Me.pnlSize.ResumeLayout(False)
         Me.pnlSize.PerformLayout()
         Me.pnlPreis.ResumeLayout(False)
         Me.pnlPreis.PerformLayout()
-        Me.pnlGeldschlitz.ResumeLayout(False)
-        Me.pnlGeldschlitz.PerformLayout()
         Me.pnlGeld.ResumeLayout(False)
         CType(Me.pic10rp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pic5Fr, System.ComponentModel.ISupportInitialize).EndInit()
@@ -545,9 +521,7 @@ Partial Class frmMain
     Friend WithEvents btnBestaetigen As System.Windows.Forms.Button
     Friend WithEvents pnlPreis As System.Windows.Forms.Panel
     Friend WithEvents lblSelection As System.Windows.Forms.Label
-    Friend WithEvents lblGeldschlitz As System.Windows.Forms.Label
     Friend WithEvents pnlOutputAll As System.Windows.Forms.Panel
-    Friend WithEvents pnlGeldschlitz As System.Windows.Forms.Panel
     Friend WithEvents pnlGeld As System.Windows.Forms.Panel
     Friend WithEvents pnlContainer As System.Windows.Forms.Panel
     Friend WithEvents tmrContainerAnimation As System.Windows.Forms.Timer
